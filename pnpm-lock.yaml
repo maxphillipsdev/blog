@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@next/font': 13.1.1
+  '@radix-ui/colors': ^0.1.8
   '@tryghost/content-api': ^1.11.5
   '@types/node': 18.11.17
   '@types/react': 18.0.26
@@ -19,6 +20,7 @@ specifiers:
 
 dependencies:
   '@next/font': 13.1.1
+  '@radix-ui/colors': 0.1.8
   '@tryghost/content-api': 1.11.5
   '@types/node': 18.11.17
   '@types/react': 18.0.26
@@ -249,6 +251,10 @@ packages:
       picocolors: 1.0.0
       tiny-glob: 0.2.9
       tslib: 2.4.1
+    dev: false
+
+  /@radix-ui/colors/0.1.8:
+    resolution: {integrity: sha512-jwRMXYwC0hUo0mv6wGpuw254Pd9p/R6Td5xsRpOmaWkUHlooNWqVcadgyzlRumMq3xfOTXwJReU0Jv+EIy4Jbw==}
     dev: false
 
   /@rushstack/eslint-patch/1.2.0:
