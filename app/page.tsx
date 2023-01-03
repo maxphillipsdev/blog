@@ -1,12 +1,12 @@
 import Link from "next/link";
-import ghostClient from "../lib/ghost";
+import ghostClient from "@lib/ghost";
 
 const HomePage = async () => {
   const posts = await ghostClient.posts.browse({ limit: 10 });
   const pages = await ghostClient.pages.browse({ limit: 10 });
 
   return (
-    <>
+    <div className="prose prose-gray">
       <h3>Posts:</h3>
       <ul>
         {posts.map((post) => (
@@ -15,7 +15,7 @@ const HomePage = async () => {
           </Link>
         ))}
       </ul>
-      <h3>Posts:</h3>
+      <h3>Pages:</h3>
       <ul>
         {pages.map((page) => (
           <Link key={page.id} href={`/${page.slug}`}>
@@ -23,7 +23,7 @@ const HomePage = async () => {
           </Link>
         ))}
       </ul>
-    </>
+    </div>
   );
 };
 
