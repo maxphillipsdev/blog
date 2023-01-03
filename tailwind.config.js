@@ -25,5 +25,7 @@ module.exports = {
         crimsonDark,
       },
     }),
+    require("@tailwindcss/typography"),
+    require("windy-radix-typography"),
   ],
 };
