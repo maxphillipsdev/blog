@@ -1,7 +1,8 @@
-const { crimson, slate, crimsonDark, slateDark } = require("@radix-ui/colors");
+const { crimson, crimsonDark, slate, slateDark } = require("@radix-ui/colors");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: "class",
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -9,11 +10,17 @@ module.exports = {
   ],
   theme: {
     fontFamily: "Inter",
-    colors: {
-      ...crimson,
-      ...slate,
-    },
+    colors: {},
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require("windy-radix-palette")({
+      colors: {
+        slate,
+        slateDark,
+        crimson,
+        crimsonDark,
+      },
+    }),
+  ],
 };
