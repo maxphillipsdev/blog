@@ -1,4 +1,4 @@
-import ghost, { GhostContentAPIOptions } from "@tryghost/content-api";
+import ghost from "@tryghost/content-api";
 
 const ghostClient = ghost({
   url: process.env.GHOST_API_URL || "http://localhost:8080",
