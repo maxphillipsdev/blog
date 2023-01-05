@@ -111,7 +111,7 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
           clipPath: `url(#menu-clip-path)`,
           WebkitClipPath: `url(#menu-clip-path)`,
         }}
-        className="fixed top-0 left-0 right-0 z-40 h-full overflow-y-auto overflow-x-hidden bg-gray-1 p-4"
+        className="fixed select-none top-0 left-0 right-0 z-40 h-full overflow-y-auto overflow-x-hidden bg-gray-1 p-4"
         {...bind()}
       >
         <nav className="flex h-full w-full flex-col items-center justify-center">

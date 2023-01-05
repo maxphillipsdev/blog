@@ -1,7 +1,7 @@
-import "./globals.css";
-import { Inter, JetBrains_Mono } from "@next/font/google";
-import { Menu } from "./Menu";
 import ghostClient from "@lib/ghost";
+import { Inter, JetBrains_Mono } from "@next/font/google";
+import "./globals.css";
+import { Menu } from "./Menu";
 
 // Setup fonts
 const inter = Inter({
@@ -25,7 +25,7 @@ export default async function RootLayout({
       <head />
       <body className="bg-gray-2 text-gray-11 selection:bg-crimson-9 selection:text-gray-12">
         <Menu items={menuItems} />
-        <main>{children}</main>
+        <main className="p-6 flex justify-center text-center">{children}</main>
         <footer></footer>
       </body>
     </html>
