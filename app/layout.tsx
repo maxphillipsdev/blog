@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Inter, JetBrains_Mono } from "@next/font/google";
-import Menu from "./Menu";
+import { Menu } from "./Menu";
 import ghostClient from "@lib/ghost";
 
 // Setup fonts
