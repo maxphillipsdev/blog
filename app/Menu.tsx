@@ -5,7 +5,7 @@ import { useDrag } from "@use-gesture/react";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes, useState } from "react";
 
 type Item = {
   label: string;
@@ -19,7 +19,12 @@ interface MenuProps {
 export const Menu: React.FC<MenuProps> = ({ items }) => {
   // Get pathname to determine the active link
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
 
+  // Handle menu toggle
+  const handleButtonClick = () => setOpen(!open);
+
+  // Handle button movement
   const [{ btnX, btnY }, setBtn] = useSpring(() => ({
     btnX: 0,
     btnY: 0,
@@ -27,7 +32,6 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
       mass: 3,
     },
   }));
-
   const bindButton = useDrag(({ down, movement: [mx, my] }) => {
     setBtn.start({
       btnX: down ? mx : 0,
@@ -35,6 +39,8 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
       immediate: down,
     });
   });
+
+  // Handle clippath drawing
 
   return (
     <>
@@ -52,11 +58,38 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
       </div>
       <MenuButton
         id="menu-button"
+        onClick={handleButtonClick}
         {...bindButton()}
         style={{ x: btnX, y: btnY }}
       />
     </>
   );
+};
+
+const getPath = (x: number, y: number, w: number, h: number) => {
+  const anchorDistance = 200 + x * 0.5;
+  const curviness = anchorDistance - 60;
+  return `M0, 
+      ${h} 
+      H0V0h${w}v 
+      ${y - anchorDistance} 
+      c0, 
+      ${curviness} 
+      , 
+     ${x} 
+      , 
+      ${curviness} 
+      , 
+     ${x} 
+      , 
+      ${anchorDistance} 
+      S${w}, 
+      ${y} 
+      ,${w}, 
+      ${y + anchorDistance * 2}
+      V
+      ${h}
+      z`;
 };
 
 const MenuButton = (props?: ButtonHTMLAttributes<HTMLButtonElement>) => {
