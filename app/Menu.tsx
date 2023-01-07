@@ -77,12 +77,12 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
     } else {
       // Check if we have passed any bounds and
       // move to resting position
-      if (!open && dx > SIDEBAR_WIDTH) {
+      if (!open && dx > SIDEBAR_WIDTH * 0.5) {
         setDValue({
           d: ACTIVE_RESTING_PATH,
         });
         setOpen(true);
-      } else if (open && dx < SIDEBAR_WIDTH) {
+      } else if (open && dx < SIDEBAR_WIDTH * -0.5) {
         setDValue({
           d: INACTIVE_RESTING_PATH,
         });
