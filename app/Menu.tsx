@@ -53,7 +53,7 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
   const [open, setOpen] = useState(false);
 
   // Handle clippath drawing
-  const SIDEBAR_WIDTH = innerWidth * 0.3;
+  const SIDEBAR_WIDTH = innerWidth;
   const INACTIVE_RESTING_PATH = getPath(50, innerHeight * 0.1, 0, innerHeight);
   const ACTIVE_RESTING_PATH = getPath(
     0,
@@ -68,7 +68,7 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
     },
   }));
 
-  const bind = useDrag(({ down: dragging, movement: [dx, dy], xy: [x] }) => {
+  const bind = useDrag(({ down: dragging, movement: [dx, dy] }) => {
     if (dragging) {
       // Update the position when dragging
       setDValue({
@@ -124,7 +124,7 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
         className="fixed select-none touch-none top-0 left-0 right-0 z-40 h-full overflow-y-auto overflow-x-hidden bg-gray-3 p-4"
       >
         <nav
-          className={`flex h-full w-1/4 flex-col items-center justify-center`}
+          className={`flex h-full w-full flex-col items-center justify-center`}
         >
           {items &&
             items.map((item) => (
@@ -137,11 +137,6 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
             ))}
         </nav>
       </div>
-      {/* <MenuButton */}
-      {/*   id="menu-button" */}
-      {/*   onClick={handleButtonClick} */}
-      {/*   style={{ x: btnX, y: btnY }} */}
-      {/* /> */}
     </>
   );
 };
