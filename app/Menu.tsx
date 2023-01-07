@@ -110,6 +110,21 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
     });
   };
 
+  const handleHoverEnter = () => {
+    if (!open) {
+      setDValue({
+        d: getPath(100, innerHeight * 0.1, 0, innerHeight),
+      });
+    }
+  };
+
+  const handleHoverExit = () => {
+    if (!open) {
+      setDValue({
+        d: INACTIVE_RESTING_PATH,
+      });
+    }
+  };
   return (
     <>
       <svg
@@ -128,8 +143,10 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
           clipPath: `url(#menu-clip-path)`,
           WebkitClipPath: `url(#menu-clip-path)`,
         }}
+        onMouseEnter={handleHoverEnter}
+        onMouseLeave={handleHoverExit}
         {...bind()}
-        className="fixed select-none touch-none top-0 left-0 right-0 z-40 h-full overflow-hidden bg-gray-3 p-4"
+        className="fixed select-none touch-none top-0 left-0 right-0 z-40 h-full overflow-hidden bg-gray-4 p-4"
       >
         <div className="flex justify-center">
           <Link href="#" onClick={closeMenu} className="text-2xl">
