@@ -95,6 +95,13 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
     }
   });
 
+  const handleLinkClick = () => {
+    setOpen(false);
+    setDValue({
+      d: INACTIVE_RESTING_PATH,
+    });
+  };
+
   return (
     <>
       <svg
@@ -125,6 +132,7 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
                 key={item.url}
                 active={pathname == item.url}
                 item={item}
+                onClick={handleLinkClick}
               />
             ))}
         </nav>
@@ -152,11 +160,14 @@ const MenuButton = (props?: ButtonHTMLAttributes<HTMLButtonElement>) => {
 const MenuItem = ({
   item,
   active = false,
+  onClick,
 }: {
   item: Item;
   active: boolean;
+  onClick: () => void;
 }) => (
   <Link
+    onClick={onClick}
     href={item.url}
     className={`group text-6xl text-gray-11 ${
       active ? "font-semibold text-gray-12" : "font-light"
