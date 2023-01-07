@@ -23,7 +23,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jbm.variable} dark`}>
       <head />
-      <body className="bg-gray-2 text-gray-11 selection:bg-crimson-9 selection:text-gray-12">
+      <body className="bg-gray-1 text-gray-11 selection:bg-crimson-9 selection:text-gray-12">
         <Menu items={menuItems} />
         <main className="p-6 flex justify-center text-center">{children}</main>
         <footer></footer>

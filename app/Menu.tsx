@@ -23,7 +23,7 @@ const getPath = (
   sidebarHeight: number
 ) => {
   const anchorDistance = 200 + tabXPosition * 0.5;
-  const curviness = anchorDistance - 60;
+  const curviness = anchorDistance - 40;
   return `M0, 
       ${sidebarHeight} 
       H0V0h${sidebarWidth}v 
@@ -68,11 +68,16 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
     },
   }));
 
-  const bind = useDrag(({ down: dragging, movement: [dx, dy] }) => {
+  const bind = useDrag(({ down: dragging, movement: [dx], xy: [, y] }) => {
     if (dragging) {
       // Update the position when dragging
       setDValue({
-        d: getPath(dx + 60, dy + 60, open ? SIDEBAR_WIDTH : 0, innerHeight),
+        d: getPath(
+          dx + innerWidth * 0.1,
+          y,
+          open ? SIDEBAR_WIDTH : 0,
+          innerHeight
+        ),
       });
     } else {
       // Check if we have passed any bounds and
@@ -98,7 +103,7 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
     }
   });
 
-  const handleLinkClick = () => {
+  const closeMenu = () => {
     setOpen(false);
     setDValue({
       d: INACTIVE_RESTING_PATH,
@@ -124,8 +129,13 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
           WebkitClipPath: `url(#menu-clip-path)`,
         }}
         {...bind()}
-        className="fixed select-none touch-none top-0 left-0 right-0 z-40 h-full overflow-y-auto overflow-x-hidden bg-gray-3 p-4"
+        className="fixed select-none touch-none top-0 left-0 right-0 z-40 h-full overflow-hidden bg-gray-3 p-4"
       >
+        <div className="flex justify-center">
+          <Link href="#" onClick={closeMenu} className="text-2xl">
+            &#8592; Back
+          </Link>
+        </div>
         <nav
           className={`flex h-full w-full flex-col items-center justify-center`}
         >
@@ -135,7 +145,7 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
                 key={item.url}
                 active={pathname == item.url}
                 item={item}
-                onClick={handleLinkClick}
+                onClick={closeMenu}
               />
             ))}
         </nav>
@@ -164,7 +174,7 @@ const MenuItem = ({
   active: boolean;
   onClick: () => void;
 }) => (
-  <Link active={active} onClick={onClick} href={item.url}>
+  <Link active={active} onClick={onClick} href={item.url} className="text-6xl">
     {item.label}
   </Link>
 );
