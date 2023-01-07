@@ -50,21 +50,7 @@ const getPath = (
 export const Menu: React.FC<MenuProps> = ({ items }) => {
   // Get pathname to determine the active link
   const pathname = usePathname();
-  const [open, setOpen] = useState(true);
-
-  // // Handle menu toggle
-  // const handleButtonClick = () => {
-  //   setOpen(!open);
-  // };
-
-  // // Handle button movement
-  // const [{ btnX, btnY }, setBtn] = useSpring(() => ({
-  //   btnX: 10,
-  //   btnY: innerHeight * 0.1 - 15,
-  //   config: {
-  //     mass: 3,
-  //   },
-  // }));
+  const [open, setOpen] = useState(false);
 
   // Handle clippath drawing
   const SIDEBAR_WIDTH = innerWidth * 0.3;
@@ -82,15 +68,30 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
     },
   }));
 
-  const bind = useDrag(({ down: dragging, movement: [dx, dy], xy: [x, y] }) => {
+  const bind = useDrag(({ down: dragging, movement: [dx, dy], xy: [x] }) => {
     if (dragging) {
+      // Update the position when dragging
       setDValue({
         d: getPath(dx + 60, dy + 60, open ? SIDEBAR_WIDTH : 0, innerHeight),
       });
     } else {
-      setDValue({
-        d: open ? ACTIVE_RESTING_PATH : INACTIVE_RESTING_PATH,
-      });
+      // Check if we have passed any bounds and
+      // move to resting position
+      if (!open && dx > SIDEBAR_WIDTH) {
+        setDValue({
+          d: ACTIVE_RESTING_PATH,
+        });
+        setOpen(true);
+      } else if (open && dx < SIDEBAR_WIDTH) {
+        setDValue({
+          d: INACTIVE_RESTING_PATH,
+        });
+        setOpen(false);
+      } else {
+        setDValue({
+          d: open ? ACTIVE_RESTING_PATH : INACTIVE_RESTING_PATH,
+        });
+      }
     }
   });
 
@@ -115,7 +116,9 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
         {...bind()}
         className="fixed select-none touch-none top-0 left-0 right-0 z-40 h-full overflow-y-auto overflow-x-hidden bg-gray-3 p-4"
       >
-        <nav className="flex h-full w-full flex-col items-center justify-center">
+        <nav
+          className={`flex h-full w-1/4 flex-col items-center justify-center`}
+        >
           {items &&
             items.map((item) => (
               <MenuItem
