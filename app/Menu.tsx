@@ -3,7 +3,7 @@ import { Bars3Icon } from "@heroicons/react/24/solid";
 import { animated, useSpring } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 
-import Link from "next/link";
+import Link from "@components/Link";
 import { usePathname } from "next/navigation";
 import { ButtonHTMLAttributes, useState } from "react";
 
@@ -164,14 +164,7 @@ const MenuItem = ({
   active: boolean;
   onClick: () => void;
 }) => (
-  <Link
-    onClick={onClick}
-    href={item.url}
-    className={`group text-6xl text-gray-11 ${
-      active ? "font-semibold text-gray-12" : "font-light"
-    }`}
-  >
+  <Link active={active} onClick={onClick} href={item.url}>
     {item.label}
-    <span className="block h-1 max-w-0 bg-crimson-9 transition-all duration-500 group-hover:max-w-full" />
   </Link>
 );
