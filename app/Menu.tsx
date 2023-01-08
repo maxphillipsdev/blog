@@ -158,7 +158,9 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
           clipPath: `url(#menu-clip-path)`,
           WebkitClipPath: `url(#menu-clip-path)`,
         }}
-        className="fixed select-none touch-none top-0 left-0 right-0 z-40 h-full overflow-hidden bg-gray-4 p-4"
+        className={`${
+          open ? "touch-none select-none" : ""
+        } fixed top-0 left-0 right-0 z-40 h-full overflow-hidden bg-gray-4 p-4`}
       >
         <div className="flex justify-center">
           <Link href={pathname || "#"} onClick={closeMenu} className="text-2xl">
