@@ -126,7 +126,7 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
   const handleHoverEnter = () => {
     if (!open) {
       setDValue({
-        d: getPath(100, innerHeight * 0.1, 0, innerHeight),
+        d: PROMPT_PATH,
       });
     }
   };
