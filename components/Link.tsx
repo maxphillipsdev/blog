@@ -14,7 +14,7 @@ const Link = ({
   return (
     <NextLink
       {...props}
-      className={`group text-gray-12 ${
+      className={`group text-gray-12 touch-none select-none ${
         active ? "font-semibold" : "font-light"
       } ${props.className}`}
     >

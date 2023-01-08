@@ -1,11 +1,11 @@
 "use client";
-import { Bars3Icon } from "@heroicons/react/24/solid";
+import { ArrowSmallRightIcon } from "@heroicons/react/24/solid";
 import { animated, useSpring } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 
 import Link from "@components/Link";
 import { usePathname } from "next/navigation";
-import { ButtonHTMLAttributes, useState } from "react";
+import { ButtonHTMLAttributes, useCallback, useEffect, useState } from "react";
 
 type Item = {
   label: string;
@@ -47,30 +47,23 @@ const getPath = (
       z`;
 };
 
+// Constant values
+const SIDEBAR_WIDTH = innerWidth;
+const TAB_HEIGHT = innerHeight * 0.1;
+const DRAG_OFFSET = 50;
+const BTN_OFFSET = {
+  x: -40,
+  y: -12,
+};
+// SVG Paths
+const INACTIVE_RESTING_PATH = getPath(50, TAB_HEIGHT, 0, innerHeight);
+const ACTIVE_RESTING_PATH = getPath(0, TAB_HEIGHT, SIDEBAR_WIDTH, innerHeight);
+
 export const Menu: React.FC<MenuProps> = ({ items }) => {
   // Get pathname to determine the active link
   const pathname = usePathname();
 
   const [open, setOpen] = useState(false);
-
-  // Constant values
-  const SIDEBAR_WIDTH = innerWidth;
-  const TAB_HEIGHT = innerHeight * 0.1;
-  const DRAG_OFFSET = 50;
-
-  const BTN_OFFSET = {
-    x: -40,
-    y: -12,
-  };
-
-  // Paths
-  const INACTIVE_RESTING_PATH = getPath(50, TAB_HEIGHT, 0, innerHeight);
-  const ACTIVE_RESTING_PATH = getPath(
-    0,
-    TAB_HEIGHT,
-    SIDEBAR_WIDTH,
-    innerHeight
-  );
 
   const [{ d }, dValueApi] = useSpring(() => ({
     d: open ? ACTIVE_RESTING_PATH : INACTIVE_RESTING_PATH,
@@ -88,17 +81,20 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
   }));
 
   // Function to update the button position and path's d value
-  const updatePosition = (updatedX: number, updatedY: number, d: string) => {
-    dValueApi.start({
-      d,
-    });
-    btnCoordsApi.start({
-      btnX: updatedX + BTN_OFFSET.x,
-      btnY: updatedY + BTN_OFFSET.y,
-    });
-  };
+  const updatePosition = useCallback(
+    (updatedX: number, updatedY: number, d: string) => {
+      dValueApi.start({
+        d,
+      });
+      btnCoordsApi.start({
+        btnX: updatedX + BTN_OFFSET.x,
+        btnY: updatedY + BTN_OFFSET.y,
+      });
+    },
+    [dValueApi, btnCoordsApi]
+  );
 
-  const bind = useDrag(({ down: dragging, movement: [dx, dy], xy: [x, y] }) => {
+  const bind = useDrag(({ down: dragging, movement: [dx], xy: [, y] }) => {
     if (dragging) {
       // Check if we have passed any bounds and
       // move to resting position
@@ -128,6 +124,17 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
     }
   });
 
+  useEffect(() => {
+    updatePosition(100, TAB_HEIGHT, getPath(100, TAB_HEIGHT, 0, innerHeight));
+    setTimeout(() => {
+      updatePosition(50, TAB_HEIGHT, INACTIVE_RESTING_PATH);
+    }, 1000);
+  }, [updatePosition]);
+
+  const openMenu = () => {
+    setOpen(true);
+    updatePosition(50, TAB_HEIGHT, ACTIVE_RESTING_PATH);
+  };
   const closeMenu = () => {
     setOpen(false);
     updatePosition(50, TAB_HEIGHT, INACTIVE_RESTING_PATH);
@@ -174,6 +181,7 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
       </div>
       <MenuButton
         {...bind()}
+        onClick={openMenu}
         style={{
           // If you are a recruiter, please look away at this next part 💀
           opacity: open
@@ -193,10 +201,11 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
 const MenuButton = (props?: ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <animated.button
-      className="fixed z-50 h-6 w-6 rounded-lg bg-transparent touch-none"
+      aria-label="open sidebar"
+      className={`fixed z-50 h-6 w-6 rounded-lg bg-transparent touch-none`}
       {...props}
     >
-      <Bars3Icon className="h-6 w-6 text-gray-11" />
+      <ArrowSmallRightIcon className="h-6 w-6 text-gray-11" />
     </animated.button>
   );
 };
