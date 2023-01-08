@@ -5,7 +5,7 @@ import { useDrag } from "@use-gesture/react";
 
 import Link from "@components/Link";
 import { usePathname } from "next/navigation";
-import { ButtonHTMLAttributes, useState } from "react";
+import { ButtonHTMLAttributes, useEffect, useState } from "react";
 
 type Item = {
   label: string;
@@ -55,12 +55,14 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
   // Handle clippath drawing
   const SIDEBAR_WIDTH = innerWidth;
   const INACTIVE_RESTING_PATH = getPath(50, innerHeight * 0.1, 0, innerHeight);
+  const PROMPT_PATH = getPath(100, innerHeight * 0.1, 0, innerHeight);
   const ACTIVE_RESTING_PATH = getPath(
     0,
     innerHeight * 0.1,
     SIDEBAR_WIDTH,
     innerHeight
   );
+
   const [{ d }, setDValue] = useSpring(() => ({
     d: open ? ACTIVE_RESTING_PATH : INACTIVE_RESTING_PATH,
     config: {
@@ -70,25 +72,15 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
 
   const bind = useDrag(({ down: dragging, movement: [dx], xy: [, y] }) => {
     if (dragging) {
-      // Update the position when dragging
-      setDValue({
-        d: getPath(
-          dx + innerWidth * 0.1,
-          y,
-          open ? SIDEBAR_WIDTH : 0,
-          innerHeight
-        ),
-      });
-    } else {
       // Check if we have passed any bounds and
       // move to resting position
-      if (!open && dx > SIDEBAR_WIDTH * 0.5) {
+      if (!open && dx > innerWidth * 0.5) {
         // Bound to open menu
         setDValue({
           d: ACTIVE_RESTING_PATH,
         });
         setOpen(true);
-      } else if (open && dx < SIDEBAR_WIDTH * -0.2) {
+      } else if (open && dx < innerWidth * -0.5) {
         // Bound to close menu
         setDValue({
           d: INACTIVE_RESTING_PATH,
@@ -96,12 +88,33 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
         setOpen(false);
       } else {
         // Neither bound exceeded case
+        // Update the position when dragging
         setDValue({
-          d: open ? ACTIVE_RESTING_PATH : INACTIVE_RESTING_PATH,
+          d: getPath(
+            dx + innerWidth * 0.1,
+            y,
+            open ? SIDEBAR_WIDTH : 0,
+            innerHeight
+          ),
         });
       }
+    } else {
+      setDValue({
+        d: open ? ACTIVE_RESTING_PATH : INACTIVE_RESTING_PATH,
+      });
     }
   });
+
+  useEffect(() => {
+    setDValue({
+      d: PROMPT_PATH,
+    });
+    setTimeout(() => {
+      setDValue({
+        d: INACTIVE_RESTING_PATH,
+      });
+    }, 1000);
+  }, [setDValue, PROMPT_PATH, INACTIVE_RESTING_PATH]);
 
   const closeMenu = () => {
     setOpen(false);
