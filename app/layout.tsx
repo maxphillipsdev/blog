@@ -1,37 +1,31 @@
-"use client";
+import ghostClient from "@lib/ghost";
+import { Inter, JetBrains_Mono } from "@next/font/google";
 import "./globals.css";
-import { Inter } from "@next/font/google";
-import { useState } from "react";
+import { Menu } from "./Menu";
 
 // Setup fonts
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
+const jbm = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jbm",
+});
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
+  const { navigation: menuItems } = await ghostClient.settings.browse();
 
   return (
-    <html lang="en" className={`${inter.variable} ${isDarkMode && "dark"}`}>
+    <html lang="en" className={`${inter.variable} ${jbm.variable} dark`}>
       <head />
-      <body className="bg-gray-1 p-3 text-gray-11 selection:bg-crimson-9 selection:text-gray-12">
-        <div>
-          <nav>
-            <button
-              className="rounded-lg bg-gray-3 p-3 text-gray-12 hover:bg-gray-4 active:bg-gray-5"
-              onClick={() => setIsDarkMode(!isDarkMode)}
-            >
-              Toggle dark mode
-            </button>
-          </nav>
-          <hr className="my-3" />
-        </div>
-        <main>{children}</main>
+      <body className="bg-gray-1 text-gray-11 selection:bg-crimson-9 selection:text-gray-12">
+        <Menu items={menuItems} />
+        <main className="p-6 flex justify-center text-center">{children}</main>
         <footer></footer>
       </body>
     </html>

@@ -9,11 +9,31 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    colors: {},
+    colors: {
+      transparent: "transparent",
+    },
     extend: {
       fontFamily: {
         sans: ["var(--font-inter)"],
+        mono: ["var(--font-jbm)"],
       },
+      animation: {
+        text: "text 5s ease infinite",
+      },
+      keyframes: {
+        text: {
+          "0%, 100%": {
+            "background-size": "200% 200%",
+            "background-position": "left center",
+          },
+          "50%": {
+            "background-size": "200% 200%",
+            "background-position": "right center",
+          },
+        },
+      },
+      ringColor: crimson.crimson9,
+      accentColor: crimson.crimson9,
     },
   },
   plugins: [

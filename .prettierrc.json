@@ -1,4 +1,4 @@
 {
   "$schema": "https://json.schemastore.org/prettierrc.json",
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-organize-imports"]
 }
