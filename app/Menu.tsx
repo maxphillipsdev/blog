@@ -175,9 +175,15 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
       <MenuButton
         {...bind()}
         style={{
-          marginLeft: btnX,
-          marginTop: btnY,
-          // opacity: 1 - btnX / innerWidth,
+          // If you are a recruiter, please look away at this next part 💀
+          opacity: open
+            ? 0
+            : (btnX.to({
+                range: [0, 100],
+                output: [1, 0],
+              }) as any as number),
+          marginLeft: btnX as any as number,
+          marginTop: btnY as any as number,
         }}
       />
     </>
