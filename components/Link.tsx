@@ -6,8 +6,11 @@ interface Props extends LinkProps {
   className?: string;
 }
 
-const Link = (props: PropsWithChildren<Props>) => {
-  const { children, active } = props;
+const Link = ({
+  children,
+  active = false,
+  ...props
+}: PropsWithChildren<Props>) => {
   return (
     <NextLink
       {...props}

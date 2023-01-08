@@ -72,14 +72,14 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
     innerHeight
   );
 
-  const [{ d }, setDValue] = useSpring(() => ({
+  const [{ d }, dValueApi] = useSpring(() => ({
     d: open ? ACTIVE_RESTING_PATH : INACTIVE_RESTING_PATH,
     config: {
       mass: 3,
     },
   }));
 
-  const [{ btnX, btnY }, setBtnCoords] = useSpring(() => ({
+  const [{ btnX, btnY }, btnCoordsApi] = useSpring(() => ({
     btnX: 50 + BTN_OFFSET.x,
     btnY: TAB_HEIGHT + BTN_OFFSET.y,
     config: {
@@ -89,10 +89,10 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
 
   // Function to update the button position and path's d value
   const updatePosition = (updatedX: number, updatedY: number, d: string) => {
-    setDValue({
+    dValueApi.start({
       d,
     });
-    setBtnCoords({
+    btnCoordsApi.start({
       btnX: updatedX + BTN_OFFSET.x,
       btnY: updatedY + BTN_OFFSET.y,
     });
@@ -165,7 +165,7 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
             items.map((item) => (
               <MenuItem
                 key={item.url}
-                active={pathname == item.url}
+                active={pathname === item.url}
                 item={item}
                 onClick={closeMenu}
               />
@@ -203,7 +203,7 @@ const MenuButton = (props?: ButtonHTMLAttributes<HTMLButtonElement>) => {
 
 const MenuItem = ({
   item,
-  active = false,
+  active,
   onClick,
 }: {
   item: Item;
