@@ -172,7 +172,9 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
             items.map((item) => (
               <MenuItem
                 key={item.url}
-                active={pathname === item.url}
+                active={
+                  pathname?.replace(/\/$/, "") === item.url.replace(/\/$/, "")
+                }
                 item={item}
                 onClick={closeMenu}
               />
