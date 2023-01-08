@@ -5,7 +5,7 @@ import { useDrag } from "@use-gesture/react";
 
 import Link from "@components/Link";
 import { usePathname } from "next/navigation";
-import { ButtonHTMLAttributes, useEffect, useState } from "react";
+import { ButtonHTMLAttributes, useState } from "react";
 
 type Item = {
   label: string;
@@ -50,15 +50,24 @@ const getPath = (
 export const Menu: React.FC<MenuProps> = ({ items }) => {
   // Get pathname to determine the active link
   const pathname = usePathname();
+
   const [open, setOpen] = useState(false);
 
-  // Handle clippath drawing
+  // Constant values
   const SIDEBAR_WIDTH = innerWidth;
-  const INACTIVE_RESTING_PATH = getPath(50, innerHeight * 0.1, 0, innerHeight);
-  const PROMPT_PATH = getPath(100, innerHeight * 0.1, 0, innerHeight);
+  const TAB_HEIGHT = innerHeight * 0.1;
+  const DRAG_OFFSET = 50;
+
+  const BTN_OFFSET = {
+    x: -40,
+    y: -12,
+  };
+
+  // Paths
+  const INACTIVE_RESTING_PATH = getPath(50, TAB_HEIGHT, 0, innerHeight);
   const ACTIVE_RESTING_PATH = getPath(
     0,
-    innerHeight * 0.1,
+    TAB_HEIGHT,
     SIDEBAR_WIDTH,
     innerHeight
   );
@@ -70,74 +79,60 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
     },
   }));
 
-  const bind = useDrag(({ down: dragging, movement: [dx], xy: [, y] }) => {
+  const [{ btnX, btnY }, setBtnCoords] = useSpring(() => ({
+    btnX: 50 + BTN_OFFSET.x,
+    btnY: TAB_HEIGHT + BTN_OFFSET.y,
+    config: {
+      mass: 3,
+    },
+  }));
+
+  // Function to update the button position and path's d value
+  const updatePosition = (updatedX: number, updatedY: number, d: string) => {
+    setDValue({
+      d,
+    });
+    setBtnCoords({
+      btnX: updatedX + BTN_OFFSET.x,
+      btnY: updatedY + BTN_OFFSET.y,
+    });
+  };
+
+  const bind = useDrag(({ down: dragging, movement: [dx, dy], xy: [x, y] }) => {
     if (dragging) {
       // Check if we have passed any bounds and
       // move to resting position
       if (!open && dx > innerWidth * 0.5) {
         // Bound to open menu
-        setDValue({
-          d: ACTIVE_RESTING_PATH,
-        });
+        updatePosition(50, TAB_HEIGHT, ACTIVE_RESTING_PATH);
         setOpen(true);
       } else if (open && dx < innerWidth * -0.5) {
         // Bound to close menu
-        setDValue({
-          d: INACTIVE_RESTING_PATH,
-        });
+        updatePosition(50, TAB_HEIGHT, INACTIVE_RESTING_PATH);
         setOpen(false);
       } else {
         // Neither bound exceeded case
         // Update the position when dragging
-        setDValue({
-          d: getPath(
-            dx + innerWidth * 0.1,
-            y,
-            open ? SIDEBAR_WIDTH : 0,
-            innerHeight
-          ),
-        });
+        updatePosition(
+          dx + DRAG_OFFSET,
+          y,
+          getPath(dx + DRAG_OFFSET, y, open ? SIDEBAR_WIDTH : 0, innerHeight)
+        );
       }
     } else {
-      setDValue({
-        d: open ? ACTIVE_RESTING_PATH : INACTIVE_RESTING_PATH,
-      });
+      updatePosition(
+        50,
+        TAB_HEIGHT,
+        open ? ACTIVE_RESTING_PATH : INACTIVE_RESTING_PATH
+      );
     }
   });
 
-  useEffect(() => {
-    setDValue({
-      d: PROMPT_PATH,
-    });
-    setTimeout(() => {
-      setDValue({
-        d: INACTIVE_RESTING_PATH,
-      });
-    }, 1000);
-  }, [setDValue, PROMPT_PATH, INACTIVE_RESTING_PATH]);
-
   const closeMenu = () => {
     setOpen(false);
-    setDValue({
-      d: INACTIVE_RESTING_PATH,
-    });
+    updatePosition(50, TAB_HEIGHT, INACTIVE_RESTING_PATH);
   };
 
-  const handleHoverEnter = () => {
-    if (!open) {
-      setDValue({
-        d: PROMPT_PATH,
-      });
-    }
-  };
-
-  const handleHoverExit = () => {
-    if (!open) {
-      setDValue({
-        d: INACTIVE_RESTING_PATH,
-      });
-    }
-  };
   return (
     <>
       <svg
@@ -156,13 +151,10 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
           clipPath: `url(#menu-clip-path)`,
           WebkitClipPath: `url(#menu-clip-path)`,
         }}
-        onMouseEnter={handleHoverEnter}
-        onMouseLeave={handleHoverExit}
-        {...bind()}
         className="fixed select-none touch-none top-0 left-0 right-0 z-40 h-full overflow-hidden bg-gray-4 p-4"
       >
         <div className="flex justify-center">
-          <Link href="#" onClick={closeMenu} className="text-2xl">
+          <Link href={pathname || "#"} onClick={closeMenu} className="text-2xl">
             &#8592; Back
           </Link>
         </div>
@@ -180,6 +172,14 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
             ))}
         </nav>
       </div>
+      <MenuButton
+        {...bind()}
+        style={{
+          marginLeft: btnX,
+          marginTop: btnY,
+          // opacity: 1 - btnX / innerWidth,
+        }}
+      />
     </>
   );
 };
@@ -190,7 +190,7 @@ const MenuButton = (props?: ButtonHTMLAttributes<HTMLButtonElement>) => {
       className="fixed z-50 h-6 w-6 rounded-lg bg-transparent touch-none"
       {...props}
     >
-      <Bars3Icon className="h-6 w-6 text-gray-12" />
+      <Bars3Icon className="h-6 w-6 text-gray-11" />
     </animated.button>
   );
 };
