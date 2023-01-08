@@ -131,14 +131,29 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
     }, 1000);
   }, [updatePosition]);
 
-  const openMenu = () => {
+  const openMenu = useCallback(() => {
     setOpen(true);
     updatePosition(50, TAB_HEIGHT, ACTIVE_RESTING_PATH);
-  };
-  const closeMenu = () => {
+  }, [setOpen, updatePosition]);
+  const closeMenu = useCallback(() => {
     setOpen(false);
     updatePosition(50, TAB_HEIGHT, INACTIVE_RESTING_PATH);
-  };
+  }, [setOpen, updatePosition]);
+
+  // Add a key event listener
+  useEffect(() => {
+    window.addEventListener(
+      "keypress",
+      (e: KeyboardEvent) => e.key === "Escape" && closeMenu()
+    );
+
+    return () => {
+      window.removeEventListener(
+        "keypress",
+        (e: KeyboardEvent) => e.key === "Escape" && closeMenu()
+      );
+    };
+  }, [closeMenu]);
 
   return (
     <>
