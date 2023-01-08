@@ -179,7 +179,7 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
       >
         <div className="flex justify-center">
           <Link href={pathname || "#"} onClick={closeMenu} className="text-2xl">
-            &#8592; Back
+            &#8592; Close
           </Link>
         </div>
         <nav
