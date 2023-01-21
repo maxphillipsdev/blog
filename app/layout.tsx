@@ -25,7 +25,7 @@ export default async function RootLayout({
       <head />
       <body className="bg-gray-1 text-gray-11 selection:bg-crimson-9 selection:text-gray-12">
         <Menu items={menuItems} />
-        <main className="p-6 flex justify-center text-center">{children}</main>
+        <main className="flex justify-center text-center">{children}</main>
         <footer></footer>
       </body>
     </html>
