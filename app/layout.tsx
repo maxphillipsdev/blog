@@ -1,5 +1,6 @@
 import ghostClient from "@lib/ghost";
 import { Inter, JetBrains_Mono } from "@next/font/google";
+import { DarkModeToggle } from "./DarkModeButton";
 import "./globals.css";
 import { Menu } from "./Menu";
 
@@ -19,13 +20,15 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const { navigation: menuItems } = await ghostClient.settings.browse();
-
   return (
-    <html lang="en" className={`${inter.variable} ${jbm.variable} dark`}>
+    <html lang="en" className={`${inter.variable} ${jbm.variable}`}>
       <head />
       <body className="bg-gray-1 text-gray-11 selection:bg-crimson-9 selection:text-gray-12">
         <Menu items={menuItems} />
-        <main className="flex justify-center text-center">{children}</main>
+        <div className="w-full flex p-3 justify-end">
+          <DarkModeToggle />
+        </div>
+        <main className="">{children}</main>
         <footer></footer>
       </body>
     </html>
