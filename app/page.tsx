@@ -1,4 +1,4 @@
-import Link from "@components/Link";
+import { PostCard } from "@components/PostCard";
 import ghostClient from "@lib/ghost";
 import Image from "next/image";
 
@@ -36,16 +36,7 @@ const HomePage = async () => {
         </h3>
         <div className="rail flex mx-16 flex-col space-y-6">
           {featuredPosts.map((post) => (
-            <Link
-              key={post.id}
-              href={`posts/${post.slug}`}
-              className="w-full border-2 border-gray-12 rounded-xl px-6 py-3"
-            >
-              <h1 className="text-xl font-bold text-gray-12 capitalize">
-                {post.title}
-              </h1>
-              <p className="text-gray-11">Read more →</p>
-            </Link>
+            <PostCard key={post.id} post={post} />
           ))}
         </div>
       </section>
