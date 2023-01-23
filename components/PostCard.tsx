@@ -1,33 +1,27 @@
 import { PostOrPage } from "@tryghost/content-api";
-import Image from "next/image";
-import Link from "./Link";
+import { Card } from "./Card";
 
 interface Props {
   post: PostOrPage;
 }
 
 const PostCard = ({ post }: Props) => {
+  const { slug, title, feature_image, custom_excerpt, reading_time } = post;
+  // unicode arrow_right:
+  const DEFAULT_SUBTITLE = "Read more \u2192";
+
+  if (!slug || !title || !feature_image || !reading_time) {
+    return null;
+  }
+
   return (
-    <Link
-      href={`posts/${post.slug}`}
-      className="bg-gray-1 max-w-sm flex flex-col border-2
-              border-gray-12 rounded-xl overflow-hidden"
-    >
-      <div className="relative h-full aspect-video">
-        <Image src={post.feature_image || ""} alt={post.title || ""} fill />
-      </div>
-      <div className="px-6 py-3">
-        <h1 className="text-xl font-bold text-gray-12 capitalize">
-          {post.title}
-        </h1>
-        <span className="flex justify-between">
-          <p className="text-gray-11">Read more →</p>
-          {post.reading_time && (
-            <p className="text-gray-11">{post.reading_time} min read</p>
-          )}
-        </span>
-      </div>
-    </Link>
+    <Card
+      slug={slug}
+      title={title}
+      image={feature_image}
+      subtitle={custom_excerpt || DEFAULT_SUBTITLE}
+      detail={reading_time.toString()}
+    />
   );
 };
 

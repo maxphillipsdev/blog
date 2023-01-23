@@ -29,7 +29,30 @@ export default async function RootLayout({
           <DarkModeToggle />
         </div>
         <main className="md:px-6 lg:px-20">{children}</main>
-        <footer></footer>
+        <footer className="border-t-2 border-gray-6 mt-48">
+          <div className="flex justify-center py-3">
+            <p className="text-gray-11">
+              © {new Date().getFullYear()} - Built with{" "}
+              <a
+                href="https://nextjs.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-crimson-9"
+              >
+                Next.js
+              </a>{" "}
+              and{" "}
+              <a
+                href="https://ghost.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-crimson-9"
+              >
+                Ghost
+              </a>
+            </p>
+          </div>
+        </footer>
       </body>
     </html>
   );
