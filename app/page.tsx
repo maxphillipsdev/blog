@@ -30,11 +30,9 @@ const HomePage = async () => {
           <sub className="">{bio}</sub>
         </div>
       </section>
-      <section className="featured flex flex-col mb-3">
-        <h3 className="text-2xl font-bold text-gray-12 mx-16 mb-6">
-          Featured posts
-        </h3>
-        <div className="rail flex mx-16 flex-col space-y-6">
+      <section className="featured flex flex-col mb-3 mx-16">
+        <h3 className="text-2xl font-bold text-gray-12 mb-6">Featured posts</h3>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {featuredPosts.map((post) => (
             <PostCard key={post.id} post={post} />
           ))}

@@ -10,10 +10,10 @@ const PostCard = ({ post }: Props) => {
   return (
     <Link
       href={`posts/${post.slug}`}
-      className="bg-gray-1 max-w-sm aspect-video flex flex-col border-2
+      className="bg-gray-1 max-w-sm flex flex-col border-2
               border-gray-12 rounded-xl overflow-hidden"
     >
-      <div className="relative h-full">
+      <div className="relative h-full aspect-video">
         <Image src={post.feature_image || ""} alt={post.title || ""} fill />
       </div>
       <div className="px-6 py-3">

@@ -28,7 +28,7 @@ export default async function RootLayout({
         <div className="w-full flex p-3 justify-end">
           <DarkModeToggle />
         </div>
-        <main className="md:px-24 lg:px-80">{children}</main>
+        <main className="md:px-6 lg:px-20">{children}</main>
         <footer></footer>
       </body>
     </html>
