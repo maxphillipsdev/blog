@@ -21,7 +21,7 @@ const Card = ({ slug, title, image, subtitle, detail }: Props) => {
       </div>
       <div className="px-6 py-3">
         <h1 className="text-xl font-bold text-gray-12 capitalize">{title}</h1>
-        <span className="flex justify-between">
+        <span className="flex justify-between space-x-12">
           <p className="text-gray-11">{subtitle}</p>
           {detail && <p className="text-gray-11">{detail} min read</p>}
         </span>

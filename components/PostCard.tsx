@@ -7,7 +7,6 @@ interface Props {
 
 const PostCard = ({ post }: Props) => {
   const { slug, title, feature_image, custom_excerpt, reading_time } = post;
-  // unicode arrow_right:
   const DEFAULT_SUBTITLE = "Read more \u2192";
 
   if (!slug || !title || !feature_image || !reading_time) {

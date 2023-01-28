@@ -1,3 +1,4 @@
+import Link from "@components/Link";
 import ghostClient from "@lib/ghost";
 import { Inter, JetBrains_Mono } from "@next/font/google";
 import { DarkModeToggle } from "./DarkModeButton";
@@ -33,23 +34,13 @@ export default async function RootLayout({
           <div className="flex justify-center py-3">
             <p className="text-gray-11">
               © {new Date().getFullYear()} - Built with{" "}
-              <a
-                href="https://nextjs.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-crimson-9"
-              >
+              <Link href="https://nextjs.org/" className="text-crimson-9">
                 Next.js
-              </a>{" "}
+              </Link>{" "}
               and{" "}
-              <a
-                href="https://ghost.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-crimson-9"
-              >
+              <Link href="https://ghost.org/" className="text-crimson-9">
                 Ghost
-              </a>
+              </Link>
             </p>
           </div>
         </footer>
