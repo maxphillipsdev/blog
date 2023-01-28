@@ -24,23 +24,23 @@ const getPath = (
 ) => {
   const anchorDistance = 200 + tabXPosition * 0.5;
   const curviness = anchorDistance - 40;
-  return `M0, 
-      ${sidebarHeight} 
-      H0V0h${sidebarWidth}v 
-      ${tabYPosition - anchorDistance} 
-      c0, 
-      ${curviness} 
-      , 
-     ${tabXPosition} 
-      , 
-      ${curviness} 
-      , 
-     ${tabXPosition} 
-      , 
-      ${anchorDistance} 
-      S${sidebarWidth}, 
-      ${tabYPosition} 
-      ,${sidebarWidth}, 
+  return `M0,
+      ${sidebarHeight}
+      H0V0h${sidebarWidth}v
+      ${tabYPosition - anchorDistance}
+      c0,
+      ${curviness}
+      ,
+     ${tabXPosition}
+      ,
+      ${curviness}
+      ,
+     ${tabXPosition}
+      ,
+      ${anchorDistance}
+      S${sidebarWidth},
+      ${tabYPosition}
+      ,${sidebarWidth},
       ${tabYPosition + anchorDistance * 2}
       V
       ${sidebarHeight}
@@ -98,7 +98,7 @@ export const Menu: React.FC<MenuProps> = ({ items }) => {
     if (dragging) {
       // Check if we have passed any bounds and
       // move to resting position
-      if (!open && dx > innerWidth * 0.5) {
+      if (!open && dx > innerWidth * 0.8) {
         // Bound to open menu
         updatePosition(50, TAB_HEIGHT, ACTIVE_RESTING_PATH);
         setOpen(true);
