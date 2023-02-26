@@ -6,12 +6,10 @@ Welcome, this is my blog :)
 
 ## Technolgies used
 
-- Next.js 13 with Typescript and the new `app` directory
-- pnpm
-- TailwindCSS with Radix Colors
-- Ghost CMS
-- `@use-gesture` and `@react-spring` to create the fun sidebar animation
-- Probably more things in the future
+- Astro (Static Site Generator)
+- pnpm (Package Manager)
+- TailwindCSS with Radix Colors (CSS Framework)
+- Markdown & MDX (Content)
 
 ## Other details
 
