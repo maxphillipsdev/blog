@@ -6,13 +6,18 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "check": "astro check && prettier --check src",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^2.0.15",
     "@astrojs/mdx": "^0.17.2",
     "@astrojs/rss": "^2.1.1",
-    "@astrojs/sitemap": "^1.1.0"
+    "@astrojs/sitemap": "^1.1.0",
+    "astro": "^2.0.15"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.4",
+    "prettier-plugin-astro": "^0.8.0"
   }
 }
