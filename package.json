@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "check": "astro check && prettier --check src",
+    "check": "astro check && prettier --check src/",
+    "format": "prettier --write --plugin-search-dir=. src/",
     "preview": "astro preview",
     "astro": "astro"
   },
