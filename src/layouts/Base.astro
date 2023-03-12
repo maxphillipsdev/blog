@@ -13,12 +13,12 @@ const { title, description, heroImage } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="dark bg-slate-1 text-slate-12">
+<html lang="en" class="dark bg-slate-2 text-slate-12 h-full">
   <head>
     <BaseHead title={title} description={description} image={heroImage} />
   </head>
-  <body>
-    <main>
+  <body class="h-full">
+    <main class="flex h-full">
       <Header title={title} />
       <slot />
     </main>
