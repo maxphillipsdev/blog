@@ -19,6 +19,7 @@
     "@astrojs/tailwind": "^3.0.1",
     "@fontsource/inter": "^4.5.15",
     "@fontsource/jetbrains-mono": "^4.5.12",
+    "@phosphor-icons/react": "^2.0.6",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "astro": "^2.0.15",

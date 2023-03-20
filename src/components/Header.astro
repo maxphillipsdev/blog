@@ -1,9 +1,9 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
-import { SITE_TITLE } from "../consts";
+import { GithubLogo, TwitterLogo } from "@phosphor-icons/react";
 ---
 
-<header class="flex flex-col h-full border-r border-r-[1] border-gray-5 p-6">
+<header class="flex h-full flex-col border-r border-gray-5 border-r-[1] p-6">
   <h2 class="font-mono">
     <span class="text-crimson-9">~/</span>maxphillipsdev
   </h2>
@@ -12,10 +12,10 @@ import { SITE_TITLE } from "../consts";
     <HeaderLink href="/blog">Blog</HeaderLink>
     <HeaderLink href="/about">About</HeaderLink>
     <HeaderLink href="https://twitter.com/maxphillipsdev" target="_blank">
-      Twitter
+      <TwitterLogo size={18} />
     </HeaderLink>
     <HeaderLink href="https://github.com/maxphillipsdev" target="_blank">
-      GitHub
+      <GithubLogo size={18} />
     </HeaderLink>
   </nav>
 </header>
