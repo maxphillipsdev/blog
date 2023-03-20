@@ -17,7 +17,7 @@ const { title, description, heroImage } = Astro.props;
     <BaseHead title={title} description={description} image={heroImage} />
   </head>
   <body class="h-full">
-    <main class="flex h-full">
+    <main class="flex h-full flex-col md:flex-row">
       <Header title={title} />
       <slot />
     </main>
