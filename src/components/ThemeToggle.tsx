@@ -2,7 +2,7 @@ import { Moon, Sun } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState(localStorage.getItem("theme") ?? "light");
+  const [theme, setTheme] = useState(localStorage.getItem("theme") ?? "dark");
 
   const handleClick = () => {
     setTheme(theme === "light" ? "dark" : "light");

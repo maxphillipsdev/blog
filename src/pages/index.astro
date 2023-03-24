@@ -1,13 +1,18 @@
 ---
-import Layout from "../layouts/BlogPost.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import Layout from "../layouts/Base.astro";
 ---
 
 <Layout
-  description="Lorem ipsum dolor sit amet"
-  updatedDate={new Date(Date.now())}
-  heroImage="/placeholder-about.png"
+  title={SITE_TITLE}
+  description={SITE_DESCRIPTION}
+  heroImage={"/placeholder-about.png"}
 >
-  <p class="prose prose-lg">
+  <article
+    class="prose prose-lg prose-slate flex max-w-none flex-col items-center"
+  >
+    <h1>Welcome! 👋</h1>
+    <img src={"/placeholder-about.png"} alt="" class="rounded-xl shadow-lg" />
     <p>
       Hey there, I'm Max Phillips, a software engineer originally from Sydney
       but raised in the Netherlands.
@@ -27,5 +32,5 @@ import Layout from "../layouts/BlogPost.astro";
       coding skills. Thanks for stopping by, and feel free to leave a comment or
       get in touch if you have any questions!
     </p>
-  </p>
+  </article>
 </Layout>
