@@ -41,3 +41,6 @@ const { title, description, image = "/placeholder-social.png" } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+<!-- Third-party scripts -->
+<script type="text/partytown" src="/_vercel/insights/script.js"></script>

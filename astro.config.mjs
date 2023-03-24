@@ -9,7 +9,10 @@ import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
+import partytown from "@astrojs/partytown";
+
+// https://astro.build/config
 export default defineConfig({
   site: `https://${process.env.VERCEL_URL}` || "http://localhost:3000",
-  integrations: [mdx(), sitemap(), react(), tailwind()],
+  integrations: [mdx(), sitemap(), react(), tailwind(), partytown()]
 });
