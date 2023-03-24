@@ -10,6 +10,6 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-  site: process.env.VERCEL_URL || "http://localhost:3000",
+  site: `https://${process.env.VERCEL_URL}` || "http://localhost:3000",
   integrations: [mdx(), sitemap(), react(), tailwind()],
 });
