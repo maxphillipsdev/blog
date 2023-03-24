@@ -10,8 +10,8 @@ const posts = (await getCollection("blog")).sort(
 ---
 
 <Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-  <section>
-    <ul>
+  <section class="w-full">
+    <ul class="w-full">
       {
         posts.map((post) => (
           <li>

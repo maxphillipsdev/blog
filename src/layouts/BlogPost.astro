@@ -9,12 +9,20 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
 <Layout title={title} description={description} heroImage={heroImage}>
-  <article>
-    {heroImage && <img width={720} height={360} src={heroImage} alt=""
-    class="rounded-xl"
-    />}
-    <h1 class="title">{title}</h1>
-    <FormattedDate date={pubDate} />
+  <article class="flex flex-col items-center gap-6">
+    {title && <h1 class="text-center text-4xl font-bold">{title}</h1>}
+    {
+      heroImage && (
+        <img
+          width={720}
+          height={360}
+          src={heroImage}
+          alt=""
+          class="mb-6 rounded-xl shadow-lg"
+        />
+      )
+    }
+    {pubDate && <FormattedDate date={pubDate} />}
     {
       updatedDate && (
         <div class="last-updated-on">
@@ -23,6 +31,8 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
       )
     }
     <hr />
-    <slot />
+    <div class="prose prose-slate max-w-none">
+      <slot />
+    </div>
   </article>
 </Layout>

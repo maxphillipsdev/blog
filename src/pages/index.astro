@@ -1,8 +1,31 @@
 ---
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import Layout from "../layouts/Base.astro";
+import Layout from "../layouts/BlogPost.astro";
 ---
 
-<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt natus praesentium quos nesciunt iure, perferendis dolore atque laboriosam ab provident.</p>
+<Layout
+  description="Lorem ipsum dolor sit amet"
+  updatedDate={new Date(Date.now())}
+  heroImage="/placeholder-about.png"
+>
+  <p class="prose prose-lg">
+    <p>
+      Hey there, I'm Max Phillips, a software engineer originally from Sydney
+      but raised in the Netherlands.
+    </p>
+
+    <p>
+      I work on smart TV apps for 9Now, using technologies like React Native,
+      TypeScript, AWS, and GraphQL to create innovative solutions.I started this
+      dev blog to share my experiences and insights with other developers who
+      are interested in software engineering. I'm always experimenting with new
+      technologies and coding techniques, and I hope to inspire others to do the
+      same.
+    </p>
+    <p>
+      Whether you're a seasoned developer or just starting out, I hope you'll
+      find some useful tips and tricks here that will help you improve your
+      coding skills. Thanks for stopping by, and feel free to leave a comment or
+      get in touch if you have any questions!
+    </p>
+  </p>
 </Layout>

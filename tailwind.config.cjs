@@ -6,12 +6,12 @@ module.exports = {
   darkMode: "class",
   theme: {
     colors: {},
-    extend:  {
+    extend: {
       fontFamily: {
         sans: ["Inter", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
-    }
+    },
   },
   plugins: [
     require("windy-radix-palette"),
