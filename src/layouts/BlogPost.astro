@@ -16,9 +16,7 @@ const buildOGURL = (title: string | undefined) => {
 ---
 
 <Layout title={title} description={description} heroImage={heroImage}>
-  <article
-    class="no-scrollbar flex flex-col items-center gap-6 overflow-y-scroll"
-  >
+  <article class="flex flex-col items-center gap-6">
     {title && <h1 class="text-center text-4xl font-bold">{title}</h1>}
     <img
       src={heroImage || buildOGURL(title)}

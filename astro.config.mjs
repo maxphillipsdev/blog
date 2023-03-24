@@ -28,7 +28,7 @@ export default defineConfig({
     partytown(),
     prefetch(),
   ],
-  output: "server",
+  output: "static",
   adapter: vercel({
     analytics: true,
   }),
