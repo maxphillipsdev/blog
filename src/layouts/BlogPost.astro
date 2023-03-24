@@ -3,16 +3,29 @@ import type { CollectionEntry } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 import Layout from "./Base.astro";
 
-type Props = CollectionEntry<"blog">["data"];
+type Props = CollectionEntry<"blog">["data"] & { slug: string };
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, slug } =
+  Astro.props;
+
+const buildOGURL = (title: string | undefined) => {
+  const url = new URL("https://image.memp.dev/api");
+  title && url.searchParams.set("title", `/${slug}`);
+  return url.toString();
+};
 ---
 
 <Layout title={title} description={description} heroImage={heroImage}>
-  <article>
-    {heroImage && <img width={720} height={360} src={heroImage} alt="" />}
-    <h1 class="title">{title}</h1>
-    <FormattedDate date={pubDate} />
+  <article
+    class="no-scrollbar flex flex-col items-center gap-6 overflow-y-scroll"
+  >
+    {title && <h1 class="text-center text-4xl font-bold">{title}</h1>}
+    <img
+      src={heroImage || buildOGURL(title)}
+      alt=""
+      class="mb-6 rounded-xl shadow-lg"
+    />
+    {pubDate && <FormattedDate date={pubDate} />}
     {
       updatedDate && (
         <div class="last-updated-on">
@@ -21,6 +34,8 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
       )
     }
     <hr />
-    <slot />
+    <div class="prose prose-slate max-w-none">
+      <slot />
+    </div>
   </article>
 </Layout>

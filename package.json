@@ -17,6 +17,9 @@
     "@astrojs/rss": "^2.1.1",
     "@astrojs/sitemap": "^1.1.0",
     "@astrojs/tailwind": "^3.0.1",
+    "@fontsource/inter": "^4.5.15",
+    "@fontsource/jetbrains-mono": "^4.5.12",
+    "@phosphor-icons/react": "^2.0.6",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "astro": "^2.0.15",
@@ -31,6 +34,8 @@
     "prettier-plugin-astro": "^0.8.0",
     "prettier-plugin-organize-imports": "^3.2.2",
     "prettier-plugin-tailwindcss": "^0.2.4",
+    "puppeteer": "^19.7.5",
+    "puppeteer-core": "^19.7.5",
     "windy-radix-palette": "^0.5.0",
     "windy-radix-typography": "^0.1.0"
   }

@@ -1,6 +1,6 @@
-import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
+import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 import react from "@astrojs/react";
@@ -10,6 +10,6 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-  site: process.env.SITE_URL || "http://localhost:3000",
-  integrations: [mdx(), sitemap(), react(), tailwind()]
+  site: `https://${process.env.VERCEL_URL}` || "http://localhost:3000",
+  integrations: [mdx(), sitemap(), react(), tailwind()],
 });
