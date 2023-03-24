@@ -16,6 +16,7 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
     className,
     { "text-crimson-9": isActive },
   ]}
+  rel="prefetch"
   {...props}
 >
   <slot />

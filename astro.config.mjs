@@ -12,7 +12,10 @@ import tailwind from "@astrojs/tailwind";
 import partytown from "@astrojs/partytown";
 
 // https://astro.build/config
+import prefetch from "@astrojs/prefetch";
+
+// https://astro.build/config
 export default defineConfig({
   site: `https://${process.env.VERCEL_URL}` || "http://localhost:3000",
-  integrations: [mdx(), sitemap(), react(), tailwind(), partytown()]
+  integrations: [mdx(), sitemap(), react(), tailwind(), partytown(), prefetch()]
 });
