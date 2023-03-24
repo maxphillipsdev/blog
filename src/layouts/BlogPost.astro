@@ -6,16 +6,22 @@ import Layout from "./Base.astro";
 type Props = CollectionEntry<"blog">["data"];
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+
+const buildOGURL = (title: string | undefined) => {
+  const url = new URL("https://image.memp.dev/api");
+  title && url.searchParams.set("title", title);
+  return url.toString();
+};
 ---
 
 <Layout title={title} description={description} heroImage={heroImage}>
   <article class="flex flex-col items-center gap-6">
     {title && <h1 class="text-center text-4xl font-bold">{title}</h1>}
-    {
-      heroImage && (
-        <img src={heroImage} alt="" class="mb-6 rounded-xl shadow-lg" />
-      )
-    }
+    <img
+      src={heroImage || buildOGURL(title)}
+      alt=""
+      class="mb-6 rounded-xl shadow-lg"
+    />
     {pubDate && <FormattedDate date={pubDate} />}
     {
       updatedDate && (
