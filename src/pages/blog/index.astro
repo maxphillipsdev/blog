@@ -11,6 +11,11 @@ const posts = (await getCollection("blog")).sort(
 
 <Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <section class="w-full">
+    {
+      posts.length === 0 && (
+        <p>Oh wait lmao i gotta write some stuff to have a blog. brb.</p>
+      )
+    }
     <ul class="w-full">
       {
         posts.map((post) => (
