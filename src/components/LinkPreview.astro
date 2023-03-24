@@ -1,0 +1,43 @@
+---
+import puppeteer from "puppeteer";
+import { randomUUID } from "node:crypto";
+const props = Astro.props;
+
+const { href } = props;
+
+const imageID = randomUUID();
+const imagePath = `./public/link-images/${imageID}.png`;
+let pageTitle;
+
+if (import.meta.env.PROD) {
+  try {
+    console.log("Taking screenshot of", href);
+    const browser = await puppeteer.launch({
+      defaultViewport: { width: 854, height: 480 },
+    });
+    const page = await browser.newPage();
+    await page.goto(href);
+    pageTitle = await page.title();
+    await page.screenshot({
+      type: "png",
+      path: imagePath,
+    });
+    await browser.close();
+  } catch (err) {
+    console.error(err);
+  }
+}
+---
+
+<a {...props} class="group underline decoration-crimson-9 decoration-wavy">
+  <slot />
+  <div
+    class="fixed z-10 hidden rounded-lg bg-slate-3 shadow-sm group-hover:block group-hover:translate-y-1"
+  >
+    <img
+      src={`/link-images/${imageID}.png`}
+      alt={pageTitle || new URL(href).hostname}
+      class="m-1 aspect-video h-40 rounded-lg bg-slate-5"
+    />
+  </div>
+</a>
