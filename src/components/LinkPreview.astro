@@ -6,7 +6,7 @@ const props = Astro.props;
 const { href } = props;
 
 const imageID = randomUUID();
-const imagePath = `./public/link-images/${imageID}.png`;
+const imagePath = `./dist/link-images/${imageID}.png`;
 let pageTitle;
 
 if (import.meta.env.PROD) {
@@ -14,6 +14,8 @@ if (import.meta.env.PROD) {
     console.log("Taking screenshot of", href);
     const browser = await puppeteer.launch({
       defaultViewport: { width: 854, height: 480 },
+      headless: false,
+      args: ["--start-maximized", "--no-sandbox", "--disable-gpu"],
     });
     const page = await browser.newPage();
     await page.goto(href);
