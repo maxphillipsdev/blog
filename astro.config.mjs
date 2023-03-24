@@ -15,7 +15,21 @@ import partytown from "@astrojs/partytown";
 import prefetch from "@astrojs/prefetch";
 
 // https://astro.build/config
+import vercel from "@astrojs/vercel/static";
+
+// https://astro.build/config
 export default defineConfig({
   site: `https://${process.env.VERCEL_URL}` || "http://localhost:3000",
-  integrations: [mdx(), sitemap(), react(), tailwind(), partytown(), prefetch()]
+  integrations: [
+    mdx(),
+    sitemap(),
+    react(),
+    tailwind(),
+    partytown(),
+    prefetch(),
+  ],
+  output: "server",
+  adapter: vercel({
+    analytics: true,
+  }),
 });
