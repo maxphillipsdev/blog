@@ -12,6 +12,7 @@ specifiers:
   '@fontsource/inter': ^4.5.15
   '@fontsource/jetbrains-mono': ^4.5.12
   '@phosphor-icons/react': ^2.0.6
+  '@prisma/client': ^4.11.0
   '@radix-ui/colors': ^0.1.8
   '@tailwindcss/typography': ^0.5.9
   '@types/react': ^18.0.21
@@ -21,6 +22,7 @@ specifiers:
   prettier-plugin-astro: ^0.8.0
   prettier-plugin-organize-imports: ^3.2.2
   prettier-plugin-tailwindcss: ^0.2.4
+  prisma: ^4.11.0
   react: ^18.0.0
   react-dom: ^18.0.0
   tailwindcss: ^3.0.24
@@ -39,6 +41,7 @@ dependencies:
   '@fontsource/inter': 4.5.15
   '@fontsource/jetbrains-mono': 4.5.12
   '@phosphor-icons/react': 2.0.6_biqbaboplfbrettd7655fr4n2y
+  '@prisma/client': 4.11.0_prisma@4.11.0
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
   astro: 2.1.6
@@ -53,6 +56,7 @@ devDependencies:
   prettier-plugin-astro: 0.8.0
   prettier-plugin-organize-imports: 3.2.2_prettier@2.8.4
   prettier-plugin-tailwindcss: 0.2.4_ywtfesiv55kstluy4uhlimu5ia
+  prisma: 4.11.0
   windy-radix-palette: 0.5.0_c52raq6bmhqtnvxkfsqtvmxguq
   windy-radix-typography: 0.1.0_ije5dgnmq6mhlav2kqifhn4dgq
 
@@ -879,6 +883,28 @@ packages:
       picocolors: 1.0.0
       tiny-glob: 0.2.9
       tslib: 2.5.0
+
+  /@prisma/client/4.11.0_prisma@4.11.0:
+    resolution: {integrity: sha512-0INHYkQIqgAjrt7NzhYpeDQi8x3Nvylc2uDngKyFDDj1tTRQ4uV1HnVmd1sQEraeVAN63SOK0dgCKQHlvjL0KA==}
+    engines: {node: '>=14.17'}
+    requiresBuild: true
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+    dependencies:
+      '@prisma/engines-version': 4.11.0-57.8fde8fef4033376662cad983758335009d522acb
+      prisma: 4.11.0
+    dev: false
+
+  /@prisma/engines-version/4.11.0-57.8fde8fef4033376662cad983758335009d522acb:
+    resolution: {integrity: sha512-3Vd8Qq06d5xD8Ch5WauWcUUrsVPdMC6Ge8ILji8RFfyhUpqon6qSyGM0apvr1O8n8qH8cKkEFqRPsYjuz5r83g==}
+    dev: false
+
+  /@prisma/engines/4.11.0:
+    resolution: {integrity: sha512-0AEBi2HXGV02cf6ASsBPhfsVIbVSDC9nbQed4iiY5eHttW9ZtMxHThuKZE1pnESbr8HRdgmFSa/Kn4OSNYuibg==}
+    requiresBuild: true
 
   /@proload/core/0.3.3:
     resolution: {integrity: sha512-7dAFWsIK84C90AMl24+N/ProHKm4iw0akcnoKjRvbfHifJZBLhaDsDus1QJmhG12lXj4e/uB/8mB/0aduCW+NQ==}
@@ -3420,6 +3446,14 @@ packages:
     resolution: {integrity: sha512-vIS4Rlc2FNh0BySk3Wkd6xmwxB0FpOndW5fisM5H8hsZSxU2VWVB5CWIkIjWvrHjIhxk2g3bfMKM87zNTrZddw==}
     engines: {node: '>=10.13.0'}
     hasBin: true
+
+  /prisma/4.11.0:
+    resolution: {integrity: sha512-4zZmBXssPUEiX+GeL0MUq/Yyie4ltiKmGu7jCJFnYMamNrrulTBc+D+QwAQSJ01tyzeGHlD13kOnqPwRipnlNw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@prisma/engines': 4.11.0
 
   /prismjs/1.29.0:
     resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
