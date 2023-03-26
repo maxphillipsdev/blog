@@ -9,3 +9,10 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model GuestbookMessage {
+  id Int      @id @default(autoincrement())
+  githubID  String
+  message   String
+  createdAt DateTime @default(now())
+}

@@ -1,0 +1,33 @@
+---
+import Layout from "../layouts/Base.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+const messages = await prisma.guestbookMessage.findMany({
+  orderBy: {
+    createdAt: "desc",
+  },
+  take: 200,
+});
+---
+
+<Layout
+  title={SITE_TITLE}
+  description={SITE_DESCRIPTION}
+  heroImage={"/placeholder-about.png"}
+>
+  <ul>
+    {
+      messages.map((message) => {
+        return (
+          <li>
+            <p>{message.message}</p>
+            <p>{message.createdAt}</p>
+          </li>
+        );
+      })
+    }
+  </ul>
+</Layout>
