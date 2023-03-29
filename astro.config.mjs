@@ -19,7 +19,9 @@ import vercel from "@astrojs/vercel/static";
 
 // https://astro.build/config
 export default defineConfig({
-  site: `https://${process.env.VERCEL_URL}` || "http://localhost:3000",
+  site: process.env.VERCEL
+    ? "https://www.maxphillips.dev"
+    : "http://localhost:3000",
   integrations: [
     mdx(),
     sitemap(),
