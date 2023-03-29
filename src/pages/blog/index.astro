@@ -16,12 +16,14 @@ const posts = (await getCollection("blog")).sort(
         <p>Oh wait lmao i gotta write some stuff to have a blog. brb.</p>
       )
     }
-    <ul class="w-full">
+    <ul class="flex w-full flex-col gap-4">
       {
         posts.map((post) => (
-          <li class="flex gap-2">
+          <li class="flex w-full justify-between gap-2">
             <FormattedDate date={post.data.pubDate} />
-            <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+            <a class="text-end" href={`/blog/${post.slug}/`}>
+              {post.data.title}
+            </a>
           </li>
         ))
       }

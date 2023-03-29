@@ -1,0 +1,29 @@
+---
+title: "(Guide) Medium Style Image Blur-Up Loading with Gatsby-Image"
+pubDate: "April 2, 2021"
+---
+
+Although the subscription wall can be annoying, I think it fair to say Medium is a pretty great blogging platform. It's simple to use, feature loaded, but most importantly its really fast.
+
+A lot of different things go into making a website fast ([Check Web.Dev for more tips](https://web.dev/fast/)) but one thing that Medium does especially well is Progressive Image Loading.
+
+Progressive Image Loading, also known as the Low Quality Image Placeholder(LQIP) pattern, is simply the technique of loading a low quality version of your image first, and then lazy loading a full size version once the main page content has loaded.
+
+The effect this has is a bit similar to using skeleton content, and it can do wonders for the perceived performance of your website and help cut on the first contentful paint (FCP) time. With GatsbyJS LQIP comes out-of-the-box with the Gatsby-Image plugin though if you want to use it ouside of Gatsby feel free to check-out [lazysizes](https://github.com/aFarkas/lazysizes#lqipblurry-image-placeholderblur-up-image-technique).
+
+In Gatsby though, blur up isn't actually enabled by default, and ends up being all too often overlooked. Because of this a lot of sites will show a not so pretty pixelated or compressed version of the image instead of a nice blurred version. Thanks to the `placeholderStyle` attribute though, fixing this is actually as easy as a single extra line of JSX.
+
+```typescript
+import Img from "gatsby-image";
+
+<Img
+  fluid={someFluidSrcImage}
+  title={imageTitle}
+  placeholderStyle={{ filter: `blur(1.5rem)` }}
+/>;
+```
+
+By adding the `placeholderStyle` attribute we can apply styles to the image that gets loaded in as a placeholder, and Gatsby handles the rest! Add a blur, pixilation or any other kind of CSS filter you like. Here's what the end result looks like for me.
+![The end result](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vdaj6srojexoom3t9ynn.gif)
+
+Let me know if you have any questions, and hope you found this useful!
