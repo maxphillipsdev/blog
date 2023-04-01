@@ -1,6 +1,7 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
+import ZoomerMode from "../components/ZoomerMode";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 
 export interface Props {
@@ -29,6 +30,7 @@ const { title, description, heroImage } = Astro.props;
       <Header title={title} />
       <div class="no-scrollbar w-full overflow-y-auto">
         <slot />
+        <ZoomerMode client:idle />
       </div>
     </main>
   </body>
