@@ -1,12 +1,18 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import Layout from "../../layouts/Base.astro";
-import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
+import { getDevToPosts } from "../../lib/content";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
-);
+const remotePosts = await getDevToPosts();
+
+const posts = [...remotePosts];
+
+posts.sort((a, b) => {
+  if (a.data.pubDate < b.data.pubDate) return 1;
+  if (a.data.pubDate > b.data.pubDate) return -1;
+  return 0;
+});
 ---
 
 <Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>

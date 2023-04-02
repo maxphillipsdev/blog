@@ -1,16 +1,18 @@
 ---
-import type { CollectionEntry } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 import Layout from "./Base.astro";
+import type { Post } from "../lib/content";
 
-type Props = CollectionEntry<"blog">["data"] & { slug: string };
+type Props = { post: Post };
 
-const { title, description, pubDate, updatedDate, heroImage, slug } =
-  Astro.props;
+console.log(Astro.props);
+
+const { post } = Astro.props as Props;
+const { title, description, pubDate, updatedDate, heroImage } = post.data;
 
 const buildOGURL = (title: string | undefined) => {
   const url = new URL("https://image.memp.dev/api");
-  title && url.searchParams.set("title", `/${slug}`);
+  title && url.searchParams.set("title", `/${post.slug}`);
   return url.toString();
 };
 ---
