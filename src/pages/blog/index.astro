@@ -22,11 +22,11 @@ posts.sort((a, b) => {
         <p>Oh wait lmao i gotta write some stuff to have a blog. brb.</p>
       )
     }
-    <ul class="flex w-full flex-col gap-4">
+    <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
       {
         posts.map((post) => (
           <a href={`/blog/${post.slug}`}>
-            <div class="border-slate-7 bg-slate-3 hover:border-slate-8 hover:bg-slate-5 max-w-sm rounded-lg border p-4 transition-colors">
+            <div class="border-slate-7 bg-slate-3 hover:border-slate-8 hover:bg-slate-5 max-w-sm overflow-hidden rounded-lg border p-4 transition-colors">
               <div class="flex flex-col items-start">
                 <p class="text-slate-11 text-sm">
                   {new Date(post.data.pubDate).toDateString()}
@@ -49,6 +49,6 @@ posts.sort((a, b) => {
           </a>
         ))
       }
-    </ul>
+    </div>
   </section>
 </Layout>
