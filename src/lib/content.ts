@@ -43,7 +43,7 @@ export async function getLocalPosts(): Promise<Post[]> {
  */
 export interface DevToUserEndpointResult {
   type_of: string;
-  path: string;
+  slug: string;
 }
 
 /**
@@ -65,7 +65,7 @@ export interface DevToApiArticleEndpoint {
 /**
  * Get a list of my article paths from Dev.to.
  */
-async function fetchDevToPaths(): Promise<string[]> {
+async function fetchDevToSlugs(): Promise<string[]> {
   const response = await fetch(
     "https://dev.to/api/articles?username=maxphillipsdev"
   );
@@ -76,7 +76,7 @@ async function fetchDevToPaths(): Promise<string[]> {
   });
 
   const paths = filteredData.map((post) => {
-    return post["path"];
+    return post["slug"];
   });
   return paths;
 }
@@ -84,8 +84,10 @@ async function fetchDevToPaths(): Promise<string[]> {
 /**
  * Get a single article from Dev.to.
  */
-async function fetchDevToArticle(path: string): Promise<Post> {
-  const response = await fetch(`https://dev.to/api/articles/${path}`);
+export async function fetchArticle(slug: string): Promise<Post> {
+  const response = await fetch(
+    `https://dev.to/api/articles/maxphillipsdev/${slug}`
+  );
 
   const data = (await response.json()) as DevToApiArticleEndpoint;
 
@@ -104,8 +106,8 @@ async function fetchDevToArticle(path: string): Promise<Post> {
 }
 
 export async function getDevToPosts(): Promise<Post[]> {
-  const paths = await fetchDevToPaths();
-  const posts = await Promise.all(paths.map(fetchDevToArticle));
+  const slugs = await fetchDevToSlugs();
+  const posts = await Promise.all(slugs.map(fetchArticle));
 
   return posts;
 }

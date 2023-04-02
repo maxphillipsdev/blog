@@ -1,32 +1,19 @@
 ---
 import BlogPost from "../../layouts/BlogPost.astro";
-import { Post, getDevToPosts } from "../../lib/content";
+import { Post, fetchArticle } from "../../lib/content";
 
-export async function getStaticPaths() {
-  const remotePosts = await getDevToPosts();
+const slug = Astro.url.pathname.split("/").pop();
 
-  const allPosts = [...remotePosts];
-
-  return allPosts.map((post) => ({
-    params: { slug: post.slug },
-    props: {
-      post: post,
-    },
-  }));
+if (!slug) {
+  return Astro.redirect("/blog");
 }
+const post = await fetchArticle(slug);
 
-type Props = { post: Post };
-
-const { post } = Astro.props;
+if (!post.data.title) {
+  return Astro.redirect("/blog");
+}
 ---
 
 <BlogPost post={post}>
   <Fragment set:html={post.data.html} />
 </BlogPost>
-
-<!-- Style overrides -->
-<style>
-  .highlight__panel-action {
-    display: none;
-  }
-</style>

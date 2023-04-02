@@ -15,7 +15,7 @@ import partytown from "@astrojs/partytown";
 import prefetch from "@astrojs/prefetch";
 
 // https://astro.build/config
-import vercel from "@astrojs/vercel/static";
+import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
@@ -30,7 +30,7 @@ export default defineConfig({
     partytown(),
     prefetch(),
   ],
-  output: "static",
+  output: "server",
   adapter: vercel({
     analytics: true,
   }),

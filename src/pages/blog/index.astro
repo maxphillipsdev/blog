@@ -1,8 +1,8 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import Layout from "../../layouts/Base.astro";
-import FormattedDate from "../../components/FormattedDate.astro";
 import { getDevToPosts } from "../../lib/content";
+import { hashCode, intToRGB } from "../../lib/utils";
 
 const remotePosts = await getDevToPosts();
 
@@ -25,12 +25,28 @@ posts.sort((a, b) => {
     <ul class="flex w-full flex-col gap-4">
       {
         posts.map((post) => (
-          <li class="flex w-full justify-between gap-2">
-            <FormattedDate date={post.data.pubDate} />
-            <a class="text-end" href={`/blog/${post.slug}/`}>
-              {post.data.title}
-            </a>
-          </li>
+          <a href={`/blog/${post.slug}`}>
+            <div class="border-slate-7 bg-slate-3 hover:border-slate-8 hover:bg-slate-5 max-w-sm rounded-lg border p-4 transition-colors">
+              <div class="flex flex-col items-start">
+                <p class="text-slate-11 text-sm">
+                  {new Date(post.data.pubDate).toDateString()}
+                </p>
+                <h2 class="text-slate-12 text-xl font-bold">
+                  {post.data.title}
+                </h2>
+                <ul class="flex justify-start">
+                  {post.data.tags?.map((tag) => (
+                    <li class="text-slate-11 mr-2 text-sm">
+                      <span style={{ color: "#" + intToRGB(hashCode(tag)) }}>
+                        #
+                      </span>
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </a>
         ))
       }
     </ul>
