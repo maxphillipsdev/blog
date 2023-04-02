@@ -2,6 +2,7 @@
 import HeaderLink from "./HeaderLink.astro";
 import { LinkedinLogo, GithubLogo, TwitterLogo } from "@phosphor-icons/react";
 import ThemeToggle from "./ThemeToggle";
+import poweredByVercel from "powered-by-vercel/powered-by-vercel.svg";
 ---
 
 <header
@@ -18,7 +19,7 @@ import ThemeToggle from "./ThemeToggle";
     <HeaderLink href="/">Home</HeaderLink>
     <HeaderLink href="/blog">Blog</HeaderLink>
   </nav>
-  <div class="mr-8 mb-4 flex w-full justify-center gap-4">
+  <div class="mr-8 flex w-full justify-center gap-4">
     <HeaderLink href="https://github.com/maxphillipsdev" target="_blank">
       <GithubLogo size={18} />
     </HeaderLink>
@@ -31,5 +32,8 @@ import ThemeToggle from "./ThemeToggle";
     <HeaderLink>
       <ThemeToggle client:load />
     </HeaderLink>
+  </div>
+  <div class="mr-8 hidden w-full justify-center md:flex">
+    <img src={poweredByVercel} alt="Powered by vercel badge" />
   </div>
 </header>
