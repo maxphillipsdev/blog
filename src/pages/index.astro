@@ -1,6 +1,11 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Layout from "../layouts/Base.astro";
+
+const response = await fetch("https://dev.to/api/users/473140");
+const data = await response.json();
+
+export const prerender = true;
 ---
 
 <Layout
@@ -9,28 +14,12 @@ import Layout from "../layouts/Base.astro";
   heroImage={"/placeholder-about.png"}
 >
   <article
-    class="prose prose-lg prose-slate flex max-w-none flex-col items-center text-center"
+    class="prose prose-lg prose-slate flex max-w-none flex-col items-center text-center font-light tracking-tight"
   >
-    <h1>Welcome! 👋</h1>
+    <h1 class="tracking-tight">Welcome! 👋</h1>
     <img src={"/placeholder-about.png"} alt="" class="rounded-xl shadow-lg" />
     <p>
-      Hey there, I'm Max Phillips, a software engineer originally from Sydney
-      but raised in the Netherlands.
-    </p>
-
-    <p>
-      I work on smart TV apps for 9Now, using technologies like React Native,
-      TypeScript, AWS, and GraphQL to create innovative solutions.I started this
-      dev blog to share my experiences and insights with other developers who
-      are interested in software engineering. I'm always experimenting with new
-      technologies and coding techniques, and I hope to inspire others to do the
-      same.
-    </p>
-    <p>
-      Whether you're a seasoned developer or just starting out, I hope you'll
-      find some useful tips and tricks here that will help you improve your
-      coding skills. Thanks for stopping by, and feel free to leave a comment or
-      get in touch if you have any questions!
+      {data.summary}
     </p>
   </article>
 </Layout>

@@ -3,11 +3,11 @@ const { date } = Astro.props;
 ---
 
 <time
-  datetime={date.toISOString()}
+  datetime={new Date(date).toISOString()}
   class="whitespace-nowrap italic text-slate-11"
 >
   {
-    date.toLocaleDateString("en-us", {
+    new Date(date).toLocaleDateString("en-us", {
       year: "numeric",
       month: "short",
       day: "numeric",

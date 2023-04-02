@@ -1,20 +1,19 @@
 ---
-import { CollectionEntry, getCollection } from "astro:content";
 import BlogPost from "../../layouts/BlogPost.astro";
+import { fetchArticle } from "../../lib/content";
 
-export async function getStaticPaths() {
-  const posts = await getCollection("blog");
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: post,
-  }));
+const slug = Astro.url.pathname.split("/").pop();
+
+if (!slug) {
+  return Astro.redirect("/blog");
 }
-type Props = CollectionEntry<"blog">;
+const post = await fetchArticle(slug);
 
-const post = Astro.props;
-const { Content } = await post.render();
+if (!post.data.title) {
+  return Astro.redirect("/blog");
+}
 ---
 
-<BlogPost {...post.data} slug={post.slug}>
-  <Content />
+<BlogPost post={post}>
+  <Fragment set:html={post.data.html} />
 </BlogPost>

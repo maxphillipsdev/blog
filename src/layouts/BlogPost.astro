@@ -1,23 +1,27 @@
 ---
-import type { CollectionEntry } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 import Layout from "./Base.astro";
+import type { Post } from "../lib/content";
 
-type Props = CollectionEntry<"blog">["data"] & { slug: string };
+type Props = { post: Post };
 
-const { title, description, pubDate, updatedDate, heroImage, slug } =
-  Astro.props;
+const { post } = Astro.props as Props;
+const { title, description, pubDate, updatedDate, heroImage } = post.data;
 
 const buildOGURL = (title: string | undefined) => {
   const url = new URL("https://image.memp.dev/api");
-  title && url.searchParams.set("title", `/${slug}`);
+  title && url.searchParams.set("title", `/${post.slug}`);
   return url.toString();
 };
 ---
 
 <Layout title={title} description={description} heroImage={heroImage}>
   <article class="flex flex-col items-center gap-6">
-    {title && <h1 class="text-center text-4xl font-bold">{title}</h1>}
+    {
+      title && (
+        <h1 class="text-center text-4xl font-bold tracking-tight">{title}</h1>
+      )
+    }
     <img
       src={heroImage || buildOGURL(title)}
       alt=""
@@ -32,7 +36,9 @@ const buildOGURL = (title: string | undefined) => {
       )
     }
     <hr />
-    <div class="prose prose-slate w-full">
+    <div
+      class="prose prose-slate w-full tracking-tight prose-p:font-normal prose-a:font-bold prose-a:decoration-slate-11 prose-a:decoration-wavy prose-img:rounded-lg"
+    >
       <slot />
     </div>
   </article>
