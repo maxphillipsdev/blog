@@ -296,16 +296,22 @@ export interface FullRequestParams extends Omit<RequestInit, "body"> {
   cancelToken?: CancelToken;
 }
 
-export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">;
+export type RequestParams = Omit<
+  FullRequestParams,
+  "body" | "method" | "query" | "path"
+>;
 
 export interface ApiConfig<SecurityDataType = unknown> {
   baseUrl?: string;
   baseApiParams?: Omit<RequestParams, "baseUrl" | "cancelToken" | "signal">;
-  securityWorker?: (securityData: SecurityDataType | null) => Promise<RequestParams | void> | RequestParams | void;
+  securityWorker?: (
+    securityData: SecurityDataType | null
+  ) => Promise<RequestParams | void> | RequestParams | void;
   customFetch?: typeof fetch;
 }
 
-export interface HttpResponse<D extends unknown, E extends unknown = unknown> extends Response {
+export interface HttpResponse<D extends unknown, E extends unknown = unknown>
+  extends Response {
   data: D;
   error: E;
 }
@@ -324,7 +330,8 @@ export class HttpClient<SecurityDataType = unknown> {
   private securityData: SecurityDataType | null = null;
   private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
   private abortControllers = new Map<CancelToken, AbortController>();
-  private customFetch = (...fetchParams: Parameters<typeof fetch>) => fetch(...fetchParams);
+  private customFetch = (...fetchParams: Parameters<typeof fetch>) =>
+    fetch(...fetchParams);
 
   private baseApiParams: RequestParams = {
     credentials: "same-origin",
@@ -343,7 +350,9 @@ export class HttpClient<SecurityDataType = unknown> {
 
   protected encodeQueryParam(key: string, value: any) {
     const encodedKey = encodeURIComponent(key);
-    return `${encodedKey}=${encodeURIComponent(typeof value === "number" ? value : `${value}`)}`;
+    return `${encodedKey}=${encodeURIComponent(
+      typeof value === "number" ? value : `${value}`
+    )}`;
   }
 
   protected addQueryParam(query: QueryParamsType, key: string) {
@@ -357,9 +366,15 @@ export class HttpClient<SecurityDataType = unknown> {
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
     const query = rawQuery || {};
-    const keys = Object.keys(query).filter((key) => "undefined" !== typeof query[key]);
+    const keys = Object.keys(query).filter(
+      (key) => "undefined" !== typeof query[key]
+    );
     return keys
-      .map((key) => (Array.isArray(query[key]) ? this.addArrayQueryParam(query, key) : this.addQueryParam(query, key)))
+      .map((key) =>
+        Array.isArray(query[key])
+          ? this.addArrayQueryParam(query, key)
+          : this.addQueryParam(query, key)
+      )
       .join("&");
   }
 
@@ -370,8 +385,13 @@ export class HttpClient<SecurityDataType = unknown> {
 
   private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
-      input !== null && (typeof input === "object" || typeof input === "string") ? JSON.stringify(input) : input,
-    [ContentType.Text]: (input: any) => (input !== null && typeof input !== "string" ? JSON.stringify(input) : input),
+      input !== null && (typeof input === "object" || typeof input === "string")
+        ? JSON.stringify(input)
+        : input,
+    [ContentType.Text]: (input: any) =>
+      input !== null && typeof input !== "string"
+        ? JSON.stringify(input)
+        : input,
     [ContentType.FormData]: (input: any) =>
       Object.keys(input || {}).reduce((formData, key) => {
         const property = input[key];
@@ -381,14 +401,17 @@ export class HttpClient<SecurityDataType = unknown> {
             ? property
             : typeof property === "object" && property !== null
             ? JSON.stringify(property)
-            : `${property}`,
+            : `${property}`
         );
         return formData;
       }, new FormData()),
     [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input),
   };
 
-  protected mergeRequestParams(params1: RequestParams, params2?: RequestParams): RequestParams {
+  protected mergeRequestParams(
+    params1: RequestParams,
+    params2?: RequestParams
+  ): RequestParams {
     return {
       ...this.baseApiParams,
       ...params1,
@@ -401,7 +424,9 @@ export class HttpClient<SecurityDataType = unknown> {
     };
   }
 
-  protected createAbortSignal = (cancelToken: CancelToken): AbortSignal | undefined => {
+  protected createAbortSignal = (
+    cancelToken: CancelToken
+  ): AbortSignal | undefined => {
     if (this.abortControllers.has(cancelToken)) {
       const abortController = this.abortControllers.get(cancelToken);
       if (abortController) {
@@ -445,15 +470,27 @@ export class HttpClient<SecurityDataType = unknown> {
     const payloadFormatter = this.contentFormatters[type || ContentType.Json];
     const responseFormat = format || requestParams.format;
 
-    return this.customFetch(`${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`, {
-      ...requestParams,
-      headers: {
-        ...(requestParams.headers || {}),
-        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
-      },
-      signal: cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal,
-      body: typeof body === "undefined" || body === null ? null : payloadFormatter(body),
-    }).then(async (response) => {
+    return this.customFetch(
+      `${baseUrl || this.baseUrl || ""}${path}${
+        queryString ? `?${queryString}` : ""
+      }`,
+      {
+        ...requestParams,
+        headers: {
+          ...(requestParams.headers || {}),
+          ...(type && type !== ContentType.FormData
+            ? { "Content-Type": type }
+            : {}),
+        },
+        signal: cancelToken
+          ? this.createAbortSignal(cancelToken)
+          : requestParams.signal,
+        body:
+          typeof body === "undefined" || body === null
+            ? null
+            : payloadFormatter(body),
+      }
+    ).then(async (response) => {
       const r = response as HttpResponse<T, E>;
       r.data = null as unknown as T;
       r.error = null as unknown as E;
@@ -497,7 +534,9 @@ export class HttpClient<SecurityDataType = unknown> {
  *         Dates and date times, unless otherwise specified, must be in
  *         the [RFC 3339](https://tools.ietf.org/html/rfc3339) format.
  */
-export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+export class Api<
+  SecurityDataType extends unknown
+> extends HttpClient<SecurityDataType> {
   api = {
     /**
      * @description This endpoint allows the client to create a new article. "Articles" are all the posts that users create on DEV that typically show up in the feed. They can be a blog post, a discussion question, a help thread etc. but is referred to as article within the code.
@@ -596,7 +635,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         collection_id?: number;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ArticleIndex[], any>({
         path: `/api/articles`,
@@ -632,7 +671,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         per_page?: number;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ArticleIndex[], any>({
         path: `/api/articles/latest`,
@@ -686,7 +725,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @summary Published article by path
      * @request GET:/api/articles/{username}/{slug}
      */
-    getArticleByPath: (username: string, slug: string, params: RequestParams = {}) =>
+    getArticleByPath: (
+      username: string,
+      slug: string,
+      params: RequestParams = {}
+    ) =>
       this.request<object, void>({
         path: `/api/articles/${username}/${slug}`,
         method: "GET",
@@ -721,7 +764,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         per_page?: number;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ArticleIndex[], void>({
         path: `/api/articles/me`,
@@ -759,7 +802,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         per_page?: number;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ArticleIndex[], void>({
         path: `/api/articles/me/published`,
@@ -797,7 +840,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         per_page?: number;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ArticleIndex[], void>({
         path: `/api/articles/me/unpublished`,
@@ -835,7 +878,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         per_page?: number;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ArticleIndex[], void>({
         path: `/api/articles/me/all`,
@@ -864,7 +907,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         note?: string;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<void, void>({
         path: `/api/articles/${id}/unpublish`,
@@ -895,7 +938,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         p_id?: string;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Comment[], void>({
         path: `/api/comments`,
@@ -974,13 +1017,18 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         type_of?: "in_house" | "community" | "external";
         /** Identifies which area of site layout the ad can appear in */
-        placement_area: "sidebar_left" | "sidebar_left_2" | "sidebar_right" | "post_sidebar" | "post_comments";
+        placement_area:
+          | "sidebar_left"
+          | "sidebar_left_2"
+          | "sidebar_right"
+          | "post_sidebar"
+          | "post_comments";
         /** Tags on which this ad can be displayed (blank is all/any tags) */
         tag_list?: string;
         /** Identifies the user who created the ad. */
         creator_id?: number;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<void, void>({
         path: `/api/display_ads`,
@@ -1038,13 +1086,18 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         display_to?: "all" | "logged_in" | "logged_out";
         /** Identifies which area of site layout the ad can appear in */
-        placement_area: "sidebar_left" | "sidebar_left_2" | "sidebar_right" | "post_sidebar" | "post_comments";
+        placement_area:
+          | "sidebar_left"
+          | "sidebar_left_2"
+          | "sidebar_right"
+          | "post_sidebar"
+          | "post_comments";
         /** Tags on which this ad can be displayed (blank is all/any tags) */
         tag_list?: string;
         /** Identifies the user who created the ad. */
         creator_id?: number;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<void, void>({
         path: `/api/display_ads/${id}`,
@@ -1125,7 +1178,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         sort?: string;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<
         {
@@ -1198,7 +1251,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         per_page?: number;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<User[], void>({
         path: `/api/organizations/${username}/users`,
@@ -1235,7 +1288,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         per_page?: number;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ArticleIndex[], void>({
         path: `/api/organizations/${username}/articles`,
@@ -1288,9 +1341,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          * Controls what kind of layout the page is rendered in
          * @default "contained"
          */
-        template?: "contained" | "full_within_layout" | "nav_bar_included" | "json";
+        template?:
+          | "contained"
+          | "full_within_layout"
+          | "nav_bar_included"
+          | "json";
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<void, void>({
         path: `/api/pages`,
@@ -1387,7 +1444,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         username?: string;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<PodcastEpisodeIndex[], void>({
         path: `/api/podcast_episodes`,
@@ -1426,12 +1483,17 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      */
     reactionsToggleCreate: (
       query: {
-        category: "like" | "unicorn" | "exploding_head" | "raised_hands" | "fire";
+        category:
+          | "like"
+          | "unicorn"
+          | "exploding_head"
+          | "raised_hands"
+          | "fire";
         /** @format int32 */
         reactable_id: number;
         reactable_type: "Comment" | "Article" | "User";
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<void, void>({
         path: `/api/reactions/toggle`,
@@ -1453,12 +1515,17 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      */
     reactionsCreate: (
       query: {
-        category: "like" | "unicorn" | "exploding_head" | "raised_hands" | "fire";
+        category:
+          | "like"
+          | "unicorn"
+          | "exploding_head"
+          | "raised_hands"
+          | "fire";
         /** @format int32 */
         reactable_id: number;
         reactable_type: "Comment" | "Article" | "User";
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<void, void>({
         path: `/api/reactions`,
@@ -1496,7 +1563,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         per_page?: number;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ArticleIndex[], void>({
         path: `/api/readinglist`,
@@ -1533,7 +1600,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         per_page?: number;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Tag[], any>({
         path: `/api/tags`,
@@ -1658,7 +1725,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
          */
         per_page?: number;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<VideoArticle[], any>({
         path: `/api/videos`,
