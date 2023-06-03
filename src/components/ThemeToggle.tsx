@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState(localStorage.getItem("theme") ?? "dark");
+  const [mounted, setMounted] = useState(false);
 
   const handleClick = () => {
     setTheme(theme === "light" ? "dark" : "light");
@@ -16,6 +17,13 @@ export default function ThemeToggle() {
     }
     localStorage.setItem("theme", theme);
   }, [theme]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // prevents ssr flash for mismatched dark mode
+  if (!mounted) return null;
 
   return (
     <button onClick={handleClick} className="flex justify-center">
