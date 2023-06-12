@@ -13,4 +13,9 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  .prose p img {
+    @apply mx-auto;
+    @apply block;
+  }
 }
