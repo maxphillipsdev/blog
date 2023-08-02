@@ -12,21 +12,38 @@ const posts = (await getCollection("blog")).sort(
 <Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <section class="w-full">
     {
-      posts.length === 0 && (
+      posts.length === 0 ? (
         <p>Oh wait lmao i gotta write some stuff to have a blog. brb.</p>
+      ) : (
+        <h1 class="prose prose-lg prose-slate decoration-crimson-9 mb-6 underline decoration-wavy">
+          thingszz i wrote and stuff
+        </h1>
       )
     }
-    <ul class="flex w-full flex-col gap-4">
+    <!-- Card grid for blog posts -->
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <!-- Blog post cards -->
       {
         posts.map((post) => (
-          <li class="flex w-full justify-between gap-2">
-            <FormattedDate date={post.data.pubDate} />
-            <a class="text-end" href={`/blog/${post.slug}/`}>
-              {post.data.title}
+          <div class="border-slate-8 bg-slate-2 rounded-lg border p-6 shadow-md">
+            <h2 class="mb-4 text-xl">
+              <a
+                href={`/blog/${post.slug}/`}
+                class="prose-slate decoration-wavy"
+              >
+                {post.data.title}
+              </a>
+            </h2>
+            <p class="text-gray-6 mb-4">
+              <FormattedDate date={post.data.pubDate} />
+            </p>
+            <p class="text-gray-6 mb-4">{post.data.description}</p>
+            <a href={`/blog/${post.slug}/`} class="">
+              Read more &rarr;
             </a>
-          </li>
+          </div>
         ))
       }
-    </ul>
+    </div>
   </section>
 </Layout>
