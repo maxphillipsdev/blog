@@ -17,4 +17,13 @@ const { Content } = await post.render();
 
 <BlogPost {...post.data} slug={post.slug}>
   <Content />
+  <script
+    src="https://utteranc.es/client.js"
+    repo="maxphillipsdev/blog"
+    issue-term="pathname"
+    label="BLOG-COMMENT"
+    theme="github-light"
+    crossorigin="anonymous"
+    async
+  ></script>
 </BlogPost>
