@@ -8,7 +8,7 @@ type Props = CollectionEntry<"blog">["data"] & { slug: string };
 const { title, description, pubDate, updatedDate, heroImage, slug } =
   Astro.props;
 
-const buildOGURL = (title: string | undefined) => {
+export const buildOGURL = (title: string | undefined) => {
   const url = new URL("https://image.memp.dev/api");
   title && url.searchParams.set("title", `/${slug}`);
   return url.toString();

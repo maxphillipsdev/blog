@@ -11,7 +11,11 @@ export interface Props {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = "/placeholder-social.png" } = Astro.props;
+const {
+  title,
+  description,
+  image = new URL("/placeholder-social.png", Astro.url),
+} = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -41,6 +45,6 @@ const { title, description, image = "/placeholder-social.png" } = Astro.props;
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta property="twitter:image" content={image} />
 
 <!-- Third-party scripts -->
