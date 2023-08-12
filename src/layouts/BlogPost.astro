@@ -8,9 +8,9 @@ type Props = CollectionEntry<"blog">["data"] & { slug: string };
 const { title, description, pubDate, updatedDate, heroImage, slug } =
   Astro.props;
 
-export const buildOGURL = (title: string | undefined) => {
+export const buildOGURL = (slug: string | undefined) => {
   const url = new URL("https://image.memp.dev/api");
-  title && url.searchParams.set("title", `/${slug}`);
+  slug && url.searchParams.set("title", `/${slug}`);
   return url.toString();
 };
 ---
@@ -19,7 +19,7 @@ export const buildOGURL = (title: string | undefined) => {
   <article class="flex w-full flex-col items-center gap-6">
     {title && <h1 class="text-center text-4xl font-bold">{title}</h1>}
     <img
-      src={heroImage || buildOGURL(title)}
+      src={heroImage || buildOGURL(slug)}
       alt=""
       class="mb-6 w-full rounded-xl shadow-lg md:max-w-4xl"
     />

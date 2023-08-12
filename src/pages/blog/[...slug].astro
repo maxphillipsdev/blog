@@ -15,11 +15,7 @@ const post = Astro.props;
 const { Content } = await post.render();
 ---
 
-<BlogPost
-  {...post.data}
-  slug={post.slug}
-  heroImage={buildOGURL(post.data.title)}
->
+<BlogPost {...post.data} slug={post.slug} heroImage={buildOGURL(post.slug)}>
   <Content />
   <script
     src="https://utteranc.es/client.js"
