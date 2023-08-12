@@ -1,0 +1,25 @@
+---
+title: Exploring React Native
+description: How does a React Native app start?
+pubDate: August 12, 2023
+---
+
+How does React Native, _React Native??_
+
+This is a question I have wanted to know the answer to for some time.
+
+React Native is a pretty cool tool, although when learning it I encountered a rather strange difficulty curve:
+![](/rn-frustration.png)
+
+Yeah, a bit strange :(
+
+While this curve is just my own experience with React Native, I like to think I am not alone in this. Upgrades in particular [were listed as the number one pain point for React Native developers in the _State of React Native_ survey,](https://results.stateofreactnative.com/opinions/#opinions_pain_points) with debugging coming in second. More recent tools in the React Native ecosystem (such as [Expo](https://expo.dev/)) even seem designed to directly address these sorts of issues.
+
+The truth is that React Native feels kind of magical to use, and that is both a blessing and curse. Writing app logic in React and having run on a native mobile device is pretty smooth, but if you stray too far off that path you might start to encounter dark spells like `BatchedBridge`, `UIManager.dispatchViewManagerCommand()`, and of course [`React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;`](https://github.com/facebook/react-native/blob/9f7dfcc35ff603de42cfa5e3fa63701916a86784/packages/react-native/Libraries/Renderer/implementations/ReactNativeRenderer-dev.js#L37C4-L37C4)
+
+As someone who came from the web dev side of things I was pretty reluctant to touch native code at first, but after working with it for a bit I gotta say it has helped make those earlier pain points a lot less annoying to deal with. Logbox errors seem less esoteric, upgrades seem (just a bit) less scary, and when something breaks it has made it a lot easier to know where to start looking.
+
+Anyway, that's enough preamble :) The main reason I made this post is because I wanna start sharing some of this weird React Native stuff on this blog, and I reckon a neat infographic would be a good place to start.
+
+Please let me know in the comments below what you think (or if I goofed anything up lol), and if you enjoyed it then check back soon for a follow up where I wanna cover some stuff about the React Native Bridge system :)
+![](/rn-intro.png)

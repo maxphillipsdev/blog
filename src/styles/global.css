@@ -17,5 +17,6 @@
   .prose p img {
     @apply mx-auto;
     @apply block;
+    @apply rounded-xl;
   }
 }
