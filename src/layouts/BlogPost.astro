@@ -21,7 +21,7 @@ export const buildOGURL = (slug: string | undefined) => {
     <img
       src={heroImage || buildOGURL(slug)}
       alt=""
-      class="mb-6 w-full rounded-xl shadow-lg md:max-w-4xl"
+      class="mb-6 w-full rounded-xl border border-slate-3 shadow-lg md:max-w-4xl"
     />
     {pubDate && <FormattedDate date={pubDate} />}
     {

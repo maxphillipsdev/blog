@@ -7,6 +7,9 @@ import FormattedDate from "../../components/FormattedDate.astro";
 const posts = (await getCollection("blog")).sort(
   (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
 );
+
+const BASE_CARD_STYLES =
+  "prose prose-slate border-slate-8 bg-slate-2 flex flex-col justify-between rounded-lg border p-6 shadow-md";
 ---
 
 <Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -25,20 +28,20 @@ const posts = (await getCollection("blog")).sort(
       <!-- Blog post cards -->
       {
         posts.map((post) => (
-          <div class="prose prose-slate border-slate-8 bg-slate-2 flex flex-col justify-between rounded-lg border p-6 shadow-md">
-            <h2 class="mb-4 text-xl">
-              <a href={`/blog/${post.slug}/`} class="no-underline">
-                {post.data.title}
-              </a>
+          <a
+            href={`/blog/${post.slug}/`}
+            class:list={[BASE_CARD_STYLES]}
+            class="h-96 w-96"
+          >
+            <h2 class="text-2xl">
+              <p>{post.data.title}</p>
             </h2>
             <FormattedDate date={post.data.pubDate} />
             <div class="">
               <p class="">{post.data.description}</p>
             </div>
-            <a href={`/blog/${post.slug}/`} class="decoration-wavy">
-              Read more &rarr;
-            </a>
-          </div>
+            <p class="decoration-wavy">Read more &rarr;</p>
+          </a>
         ))
       }
     </div>

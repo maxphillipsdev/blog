@@ -16,7 +16,11 @@ const data = await response.json();
   >
     <h1>Welcome! 👋</h1>
     <div class="w-full md:max-w-4xl">
-      <img src={"/placeholder-about.png"} alt="" class="rounded-xl shadow-lg" />
+      <img
+        src={"/placeholder-about.png"}
+        alt=""
+        class="rounded-xl border border-slate-3 shadow-lg"
+      />
       <div class="rounded-lg border-2 border-slate-4 bg-slate-3 px-3">
         <p>
           {data.summary}
