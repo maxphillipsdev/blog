@@ -26,7 +26,7 @@ const posts = (await getCollection("blog")).sort(
           />
           <ul>
             {posts.map((post) => (
-              <a href={`/blog/${post.slug}/`}>
+              <a class="hover:underline" href={`/blog/${post.slug}/`}>
                 <li class="flex">
                   <pre class="bold">=></pre>
                   {post.data.title}
