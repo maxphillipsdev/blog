@@ -12,7 +12,7 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
 <a
   href={href}
   class:list={[
-    "w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4",
+    "animate w-min rounded-lg p-3 transition-all duration-200",
     className,
     { "text-crimson-9": isActive },
   ]}
