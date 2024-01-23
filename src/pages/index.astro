@@ -11,6 +11,7 @@ const data = await response.json();
   description={SITE_DESCRIPTION}
   heroImage={"/placeholder-about.png"}
 >
+  <h2 class="mb-6 text-4xl font-bold">About me</h2>
   <article
     class="prose prose-lg flex max-w-none flex-col items-center text-center"
   >
@@ -19,5 +20,10 @@ const data = await response.json();
         {data.summary}
       </p>
     </div>
+    <img
+      src="https://web.archive.org/web/20091026193304if_/http://geocities.com/alessimdon/Immagini/lavori03.gif"
+      class="absolute bottom-20 right-20"
+      alt="under construction!"
+    />
   </article>
 </Layout>

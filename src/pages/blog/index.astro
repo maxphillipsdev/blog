@@ -5,45 +5,38 @@ import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
 
 const posts = (await getCollection("blog")).sort(
-  (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-
-const BASE_CARD_STYLES =
-  "prose prose-slate border-slate-8 bg-slate-2 flex flex-col justify-between rounded-lg border p-6 shadow-md";
 ---
 
 <Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <section class="w-full">
     {
       posts.length === 0 ? (
-        <p>Oh wait lmao i gotta write some stuff to have a blog. brb.</p>
+        <img
+          src="https://web.archive.org/web/20091026193304if_/http://geocities.com/alessimdon/Immagini/lavori03.gif"
+          alt="Writing stuff..."
+        />
       ) : (
-        <h1 class="prose prose-lg prose-slate decoration-crimson-9 mb-6 underline decoration-wavy">
-          thingszz i wrote and stuff
-        </h1>
+        <>
+          <h2 class="mb-6 text-4xl font-bold">Blog posts</h2>
+          <img
+            src="https://web.archive.org/web/20091025010801if_/http://geocities.com/adndgamer/mcspin5.gif"
+            alt="idk why I keep adding these gifs"
+          />
+          <ul>
+            {posts.map((post) => (
+              <a href={`/blog/${post.slug}/`}>
+                <li class="flex">
+                  <pre class="bold">=></pre>
+                  {post.data.title}
+                  (<FormattedDate date={post.data.pubDate} />)
+                </li>
+              </a>
+            ))}
+          </ul>
+        </>
       )
     }
-    <!-- Card grid for blog posts -->
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-      <!-- Blog post cards -->
-      {
-        posts.map((post) => (
-          <a
-            href={`/blog/${post.slug}/`}
-            class:list={[BASE_CARD_STYLES]}
-            class="h-96 w-96"
-          >
-            <h2 class="text-2xl">
-              <p>{post.data.title}</p>
-            </h2>
-            <FormattedDate date={post.data.pubDate} />
-            <div class="">
-              <p class="">{post.data.description}</p>
-            </div>
-            <p class="decoration-wavy">Read more &rarr;</p>
-          </a>
-        ))
-      }
-    </div>
   </section>
 </Layout>
