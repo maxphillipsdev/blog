@@ -5,9 +5,9 @@ import ThemeToggle from "./ThemeToggle";
 ---
 
 <header
-  class="flex flex-col gap-4 border-b border-slate-3 print:hidden md:h-full md:border-b-0 md:border-r"
+  class="border-slate-3 flex flex-col gap-4 border-b md:h-full md:border-b-0 md:border-r print:hidden"
 >
-  <h2 class="flex w-full justify-center font-mono text-slate-12 md:mr-6">
+  <h2 class="text-slate-12 flex w-full justify-center font-mono md:mr-6">
     <HeaderLink href="/">
       <span class="text-crimson-9">~/</span>maxphillipsdev
     </HeaderLink>
@@ -18,7 +18,7 @@ import ThemeToggle from "./ThemeToggle";
     <HeaderLink href="/">Home</HeaderLink>
     <HeaderLink href="/blog">Blog</HeaderLink>
   </nav>
-  <div class="mr-8 mb-4 flex w-full justify-center gap-4">
+  <div class="mb-4 mr-8 flex w-full justify-center gap-4">
     <HeaderLink href="https://github.com/maxphillipsdev" target="_blank">
       <GithubLogo size={18} />
     </HeaderLink>
@@ -29,7 +29,7 @@ import ThemeToggle from "./ThemeToggle";
       <TwitterLogo size={18} />
     </HeaderLink>
     <HeaderLink>
-      <ThemeToggle client:load />
+      <ThemeToggle client:load client:only />
     </HeaderLink>
   </div>
 </header>
