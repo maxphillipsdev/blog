@@ -11,21 +11,19 @@ const data = await response.json();
   description={SITE_DESCRIPTION}
   heroImage={"/placeholder-about.png"}
 >
+  <h2 class="mb-6 text-4xl font-bold">About me</h2>
   <article
-    class="prose prose-lg prose-slate flex max-w-none flex-col items-center text-center"
+    class="prose prose-lg flex max-w-none flex-col items-center text-center"
   >
-    <h1>Welcome! 👋</h1>
     <div class="w-full md:max-w-4xl">
-      <img
-        src={"/placeholder-about.png"}
-        alt=""
-        class="rounded-xl border border-slate-3 shadow-lg"
-      />
-      <div class="rounded-lg border-2 border-slate-4 bg-slate-3 px-3">
-        <p>
-          {data.summary}
-        </p>
-      </div>
+      <p>
+        {data.summary}
+      </p>
     </div>
+    <img
+      src="https://web.archive.org/web/20091026193304if_/http://geocities.com/alessimdon/Immagini/lavori03.gif"
+      class="absolute bottom-20 right-20"
+      alt="under construction!"
+    />
   </article>
 </Layout>

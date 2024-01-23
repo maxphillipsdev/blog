@@ -12,10 +12,10 @@ export interface Props {
 const { title, description, heroImage } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html
   lang="en"
-  class="dark h-full bg-slate-1 text-slate-12 transition-colors ease-in-out"
+  class="bg-slate-1 text-slate-12 dark h-full transition-colors ease-in-out"
 >
   <head>
     <BaseHead
@@ -23,32 +23,18 @@ const { title, description, heroImage } = Astro.props;
       description={description || SITE_DESCRIPTION}
       image={heroImage}
     />
-    <script is:inline>
-      const theme = (() => {
-        if (
-          typeof localStorage !== "undefined" &&
-          localStorage.getItem("theme")
-        ) {
-          return localStorage.getItem("theme");
-        }
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          return "dark";
-        }
-        return "light";
-      })();
-
-      if (theme === "light") {
-        document.documentElement.classList.remove("dark");
-      } else {
-        document.documentElement.classList.add("dark");
-      }
-      window.localStorage.setItem("theme", theme);
-    </script>
   </head>
-  <body class="h-full">
-    <main class="flex h-full flex-col gap-6 p-6 md:flex-row">
+  <body class="flex h-full w-full justify-center">
+    <main class="w-full flex-col gap-6 p-6 md:w-1/3">
+      <a href="/" class="flex w-full items-center space-x-2">
+        <img
+          src="https://web.archive.org/web/20090806191037if_/http://www.geocities.com/cacjc2006/welcome_form.gif"
+          alt="Welcome"
+        />
+        <p>To my blog!</p>
+      </a>
       <Header title={title} />
-      <div class="no-scrollbar w-full overflow-y-auto">
+      <div class="no-scrollbar overflow-y-auto">
         <slot />
       </div>
     </main>
