@@ -1,7 +1,6 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import { LinkedinLogo, GithubLogo, TwitterLogo } from "@phosphor-icons/react";
-import ThemeToggle from "./ThemeToggle";
 ---
 
 <header
@@ -27,9 +26,6 @@ import ThemeToggle from "./ThemeToggle";
     </HeaderLink>
     <HeaderLink href="https://twitter.com/maxphillipsdev" target="_blank">
       <TwitterLogo size={18} />
-    </HeaderLink>
-    <HeaderLink>
-      <ThemeToggle client:load />
     </HeaderLink>
   </div>
 </header>

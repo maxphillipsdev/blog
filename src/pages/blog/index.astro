@@ -27,16 +27,13 @@ const BASE_CARD_STYLES =
       {
         posts.map((post) => (
           <li>
-            <a
-            href={`/blog/${post.slug}/`}
-            class="flex space-x-1"
-            >
+            <a href={`/blog/${post.slug}/`} class="flex space-x-1">
               <p>→</p>
               <p>{post.data.title}</p>
               <FormattedDate date={post.data.pubDate} />
-                </li>
-                </a>
-                ))
+            </a>
+          </li>
+        ))
       }
     </ul>
   </section>
