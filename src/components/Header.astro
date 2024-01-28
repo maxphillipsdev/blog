@@ -1,14 +1,24 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import { LinkedinLogo, GithubLogo, TwitterLogo } from "@phosphor-icons/react";
+import ThemeToggle from "./ThemeToggle";
 ---
 
-<header class="border-slate-3 mb-6 flex justify-between border-b border-t">
-  <nav class="flex text-center">
+<header
+  class="flex flex-col gap-4 border-b border-slate-3 print:hidden md:h-full md:border-b-0 md:border-r"
+>
+  <h2 class="flex w-full justify-center font-mono text-slate-12 md:mr-6">
+    <HeaderLink href="/">
+      <span class="text-crimson-9">~/</span>maxphillipsdev
+    </HeaderLink>
+  </h2>
+  <nav
+    class="flex h-full justify-center gap-4 font-black md:flex-col md:justify-start"
+  >
     <HeaderLink href="/">Home</HeaderLink>
     <HeaderLink href="/blog">Blog</HeaderLink>
   </nav>
-  <div class="flex items-center">
+  <div class="mr-8 mb-4 flex w-full justify-center gap-4">
     <HeaderLink href="https://github.com/maxphillipsdev" target="_blank">
       <GithubLogo size={18} />
     </HeaderLink>
@@ -17,6 +27,9 @@ import { LinkedinLogo, GithubLogo, TwitterLogo } from "@phosphor-icons/react";
     </HeaderLink>
     <HeaderLink href="https://twitter.com/maxphillipsdev" target="_blank">
       <TwitterLogo size={18} />
+    </HeaderLink>
+    <HeaderLink>
+      <ThemeToggle client:load />
     </HeaderLink>
   </div>
 </header>

@@ -12,10 +12,11 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
 <a
   href={href}
   class:list={[
-    "animate w-min rounded-lg p-3 transition-all duration-200 hover:underline",
+    "w-min p-3 rounded-lg animate transition-all duration-200 hover:bg-slate-4",
     className,
-    { bold: isActive },
+    { "text-crimson-9": isActive },
   ]}
+  rel="prefetch"
   {...props}
 >
   <slot />
