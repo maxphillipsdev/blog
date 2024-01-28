@@ -5,7 +5,7 @@ import { getCollection } from "astro:content";
 import FormattedDate from "../../components/FormattedDate.astro";
 
 const posts = (await getCollection("blog")).sort(
-  (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
 const BASE_CARD_STYLES =
@@ -16,34 +16,28 @@ const BASE_CARD_STYLES =
   <section class="w-full">
     {
       posts.length === 0 ? (
-        <p>Oh wait lmao i gotta write some stuff to have a blog. brb.</p>
+        <p>Time to write some stuff!</p>
       ) : (
         <h1 class="prose prose-lg prose-slate decoration-crimson-9 mb-6 underline decoration-wavy">
-          thingszz i wrote and stuff
+          Blog posts
         </h1>
       )
     }
-    <!-- Card grid for blog posts -->
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-      <!-- Blog post cards -->
+    <ul>
       {
         posts.map((post) => (
-          <a
+          <li>
+            <a
             href={`/blog/${post.slug}/`}
-            class:list={[BASE_CARD_STYLES]}
-            class="h-96 w-96"
-          >
-            <h2 class="text-2xl">
+            class="flex space-x-1"
+            >
+              <p>→</p>
               <p>{post.data.title}</p>
-            </h2>
-            <FormattedDate date={post.data.pubDate} />
-            <div class="">
-              <p class="">{post.data.description}</p>
-            </div>
-            <p class="decoration-wavy">Read more &rarr;</p>
-          </a>
-        ))
+              <FormattedDate date={post.data.pubDate} />
+                </li>
+                </a>
+                ))
       }
-    </div>
+    </ul>
   </section>
 </Layout>
