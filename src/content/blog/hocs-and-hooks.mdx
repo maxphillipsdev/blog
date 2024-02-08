@@ -1,0 +1,25 @@
+
+---
+title: HoCs for your Hooks
+description: Using higher order React components for incremental migrations.
+pubDate: Febuary 08, 2024
+---
+
+Say we have a hook
+
+```tsx
+
+// Do something fancy
+const fancyThing = useFancyThing();
+
+```
+
+And say we have a class component that we haven't gotten rid of (yet).
+
+```tsx
+
+class AncientClassComponentWeCantGetRidOfYet extends React.Component {
+  render() {
+    
+  }
+}
