@@ -1,9 +1,6 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Layout from "../layouts/Base.astro";
-
-const response = await fetch("https://dev.to/api/users/473140");
-const data = await response.json();
 ---
 
 <Layout
@@ -12,20 +9,20 @@ const data = await response.json();
   heroImage={"/placeholder-about.png"}
 >
   <article
-    class="prose prose-lg prose-slate flex max-w-none flex-col items-center text-center"
+    class="prose-slate flex max-w-none flex-col items-center text-justify text-lg"
   >
-    <h1>Welcome! 👋</h1>
-    <div class="w-full md:max-w-2xl">
-      <img
-        src={"/placeholder-about.png"}
-        alt=""
-        class="rounded-xl border border-slate-3 shadow-lg"
-      />
-      <div class="rounded-lg border-2 border-slate-4 bg-slate-3 px-3">
-        <p>
-          {data.summary}
-        </p>
-      </div>
-    </div>
+  <h2>Hi I'm Max</h2>
+  <p>I'm a software fella who codes things.</p>
+  <br/>
+  <p>Some stuff I've done / am doing:</p>
+  <div class="text-left">
+  <ul>
+    <li>– Working at Channel 9 on the <a href="https://www.9now.com.au/" class="underline">9Now</a> Smart TV app.</li>
+    <li>– Currently porting the mobile e2e testing tool <a class="underline" href="https://github.com/mobile-dev-inc/maestro/pull/2067">Maestro</a> to Apple TV (tvOS).</li>
+    <li>– Gave a <a href="https://www.youtube.com/watch?v=MIXaSbdnEZo" class="underline">conference talk</a> a while ago in Poland which was pretty cool.</li>
+    <li>– Forgetting to update this blog.</li>
+  </ul>
+  </div>
+  <br/>
   </article>
 </Layout>
