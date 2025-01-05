@@ -1,6 +1,6 @@
 ---
 import { CollectionEntry, getCollection } from "astro:content";
-import BlogPost, { buildOGURL } from "../../layouts/BlogPost.astro";
+import BlogPost from "../../layouts/BlogPost.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -15,7 +15,7 @@ const post = Astro.props;
 const { Content } = await post.render();
 ---
 
-<BlogPost {...post.data} slug={post.slug} heroImage={buildOGURL(post.slug)}>
+<BlogPost {...post.data} slug={post.slug} heroImage={post.heroImage}>
   <Content />
   <script src="https://giscus.app/client.js"
           data-repo="maxphillipsdev/blog"

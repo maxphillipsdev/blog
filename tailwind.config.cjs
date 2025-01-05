@@ -8,7 +8,7 @@ module.exports = {
     colors: {},
     extend: {
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
+        sans: ["system-ui", "Inter", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
     },

@@ -15,7 +15,6 @@ const { title, description, heroImage } = Astro.props;
 <!DOCTYPE html>
 <html
   lang="en"
-  class="dark h-full bg-slate-1 text-slate-12 transition-colors ease-in-out"
 >
   <head>
     <BaseHead
@@ -45,7 +44,7 @@ const { title, description, heroImage } = Astro.props;
       window.localStorage.setItem("theme", theme);
     </script>
   </head>
-  <body class="h-full">
+  <body class="mx-auto max-w-[80ch] bg-slate-1 text-slate-12 h-screen decoration-crimson-9">
     <main class="flex h-full flex-col gap-6 p-6">
       <Header title={title} />
       <div class="no-scrollbar w-full overflow-y-auto">

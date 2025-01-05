@@ -1,6 +1,13 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import Layout from "../layouts/Base.astro";
+
+import { getCollection } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 ---
 
 <Layout
@@ -8,21 +15,27 @@ import Layout from "../layouts/Base.astro";
   description={SITE_DESCRIPTION}
   heroImage={"/placeholder-about.png"}
 >
-  <article
-    class="prose-slate flex max-w-none flex-col items-center text-justify text-lg"
-  >
-  <h2>Hi I'm Max</h2>
-  <p>I'm a software fella who codes things.</p>
-  <br/>
-  <p>Some stuff I've done / am doing:</p>
-  <div class="text-left">
-  <ul>
-    <li>– Working at Channel 9 on the <a href="https://www.9now.com.au/" class="underline">9Now</a> Smart TV app.</li>
-    <li>– Currently porting the mobile e2e testing tool <a class="underline" href="https://github.com/mobile-dev-inc/maestro/pull/2067">Maestro</a> to Apple TV (tvOS).</li>
-    <li>– Gave a <a href="https://www.youtube.com/watch?v=MIXaSbdnEZo" class="underline">conference talk</a> a while ago in Poland which was pretty cool.</li>
-    <li>– Forgetting to update this blog.</li>
+  <h2 class="font-bold mb-3 shadow-sky-5 drop-shadow-lg">About me</h2>
+  <p>
+    Software engineer with focus on frontend, mainly Smart/Connected TVs and web.
+  </p>
+  <p>
+    Based in Sydney Australia. Previously in Den Haag, The Netherlands.
+  </p>
+  <br class=""/>
+
+  <h2 class="font-bold mb-3">Writing</h2>
+  <ul class="list-disc list-inside">
+      {
+        posts.map((post) => (
+          <li>
+            <a href={`/blog/${post.slug}/`} class="hover:underline decoration-wavy decoration-crimson-9">
+              {post.data.title}
+              •
+              <FormattedDate date={post.data.pubDate} />
+            </a>
+          </li>
+        ))
+      }
   </ul>
-  </div>
-  <br/>
-  </article>
 </Layout>
